@@ -1,22 +1,22 @@
+#include <iostream>
 #include "Tile.hpp"
+#include <string>
 
-Tile::Tile(const std::string& textureName, float x, float y, bool isPassable) {
-	if (setSprite(textureName)) {
-		return 0;
+Tile::Tile(const std::string& textureName, float x, float y, bool isPassable) : sprite(texture) {
+	if (setSprite(textureName) == false) {
+		return;
 	}
-	
 	position = sf::Vector2f(x, y);
 	sprite.setPosition(position);
 	this->isPassable = isPassable;
 }
 
-bool Tile::setSprite(std::string textureName) {
-	if (!texture.loadFromFile(textureName)) {
+bool Tile::setSprite(const std::string& textureName) {
+	if (texture.loadFromFile(textureName) == false) {
 		std::cout << "Error loading texture" << std::endl;
-		return 0;
+		return false;
 	}
 	texture.setSmooth(true);
-	sprite.setTexture(texture);
-	sprite.setTextureRect(sf::IntRect(0, 0, 120, 120));
-	return 1;
+	sprite.setTextureRect(sf::IntRect({ 0, 0 }, { 120, 120 }));
+	return true;
 }

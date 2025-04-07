@@ -1,10 +1,26 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
+
+#include "Map.hpp"
+#include "Tile.hpp"
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({1920, 1080}), "SFML", sf::Style::Close, sf::State::Fullscreen);
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    window.setMouseCursorVisible(false);
+
+    sf::Texture texture;
+	if (texture.loadFromFile("images/test.png") == false)
+	{
+		std::cout << "Error loading texture" << std::endl;
+        return 0;
+	}
+
+	sf::Sprite sprite(texture);
+    texture.setSmooth(true);
+
+	Map map = Map();
+
 
     while (window.isOpen())
     {
@@ -13,29 +29,36 @@ int main()
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
             {
                 
-                shape.move({ 0.f, -5.f });
+                sprite.move({ 0.f, -5.f });
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
             {
                
-                shape.move({ -5.f, 0.f });
+                sprite.move({ -5.f, 0.f });
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
             {
                
-                shape.move({ 0.f, 5.f });
+                sprite.move({ 0.f, 5.f });
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
             {
                 
-                shape.move({ 5.f, 0.f });
+                sprite.move({ 5.f, 0.f });
             }
         }
 
         window.clear();
-        window.draw(shape);
+        for (int i = 0; i < map.gridHeight; i++)
+        {
+			for (int j = 0; j < map.gridWidth; j++)
+			{
+				window.draw(map.tiles[i][j]->sprite);
+			}
+        }
+        window.draw(sprite);
         window.display();
     }
 }

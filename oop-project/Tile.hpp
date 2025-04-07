@@ -2,8 +2,8 @@
 #include <iostream>
 #include <string>
 
-#ifndef MAP_HPP
-#define MAP_HPP
+#ifndef TILE_HPP
+#define TILE_HPP
 
 class Tile {
 public:
@@ -12,7 +12,8 @@ public:
 	sf::Vector2f position;
 	bool isPassable;
 	Tile(const std::string& textureName, float x, float y, bool isPassable);
-	bool setSprite(const std::string);
+	~Tile() {};
+	bool setSprite(const std::string& textureName);
 };
 
 #endif
