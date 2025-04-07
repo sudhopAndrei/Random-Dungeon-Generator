@@ -7,8 +7,8 @@
 
 class Tile {
 	sf::Texture texture;
-	sf::Sprite sprite; 
-	bool isPassable;
+	sf::Sprite sprite;
+	bool isPassable; ///check if a tile is passable or not
 
 public:
 	Tile(const std::string& textureName, float x, float y, bool isPassable);

@@ -18,12 +18,11 @@ bool Tile::setSprite(const std::string& textureName) {
 		return false;
 	}
 	texture.setSmooth(true);
-	sprite.setTextureRect(sf::IntRect({ 0, 0 }, { 120, 120 }));
+	sprite.setTextureRect(sf::IntRect({ 0, 0 }, { 120, 120 })); ///customizing the texture
 	return true;
 }
 
 ///getters
-
 sf::Texture Tile::getTexture() {
 	return texture;
 }

@@ -35,7 +35,6 @@ void Map::setTiles() {
 }
 
 ///getters
-
 int Map::getGridHeight() {
 	return gridHeight;
 }
