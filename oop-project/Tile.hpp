@@ -6,14 +6,19 @@
 #define TILE_HPP
 
 class Tile {
-public:
 	sf::Texture texture;
-	sf::Sprite sprite;
-	sf::Vector2f position;
+	sf::Sprite sprite; 
 	bool isPassable;
+
+public:
 	Tile(const std::string& textureName, float x, float y, bool isPassable);
 	~Tile() {};
 	bool setSprite(const std::string& textureName);
+	
+	///getters
+	sf::Texture getTexture();
+	sf::Sprite getSprite();
+	bool getIsPassable();
 };
 
 #endif

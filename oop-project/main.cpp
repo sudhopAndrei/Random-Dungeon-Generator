@@ -51,11 +51,11 @@ int main()
         }
 
         window.clear();
-        for (int i = 0; i < map.gridHeight; i++)
+        for (int i = 0; i < map.getGridHeight(); i++)
         {
-			for (int j = 0; j < map.gridWidth; j++)
+			for (int j = 0; j < map.getGridWidth(); j++)
 			{
-				window.draw(map.tiles[i][j]->sprite);
+				window.draw(map.tiles[i][j]->getSprite());
 			}
         }
         window.draw(sprite);

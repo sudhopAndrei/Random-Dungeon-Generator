@@ -7,13 +7,17 @@
 #define MAP_HPP
 
 class Map {
-	sf::Vector2f playerPosition;
-	void setTiles();
-public:
-	std::vector < std::vector <Tile*> > tiles;
 	int gridHeight;
 	int gridWidth;
+public:
+	std::vector < std::vector <Tile*> > tiles;
 	Map();
+	~Map() {};
+	void setTiles();
+	
+	///getters
+	int getGridHeight();
+	int getGridWidth();
 };
 
 #endif
