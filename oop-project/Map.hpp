@@ -10,7 +10,8 @@ class Map {
 	int gridHeight;
 	int gridWidth;
 public:
-	std::vector < std::vector <Tile*> > tiles;
+	std::vector < std::vector <Tile*> > grassTiles;
+	std::vector < std::vector <Tile*> > floorTiles;
 	Map();
 	~Map() {};
 	void setTiles();

@@ -3,35 +3,38 @@
 
 #include "Map.hpp"
 #include "Tile.hpp"
+#include "Wall.hpp"
 
 Map::Map() {
-	gridWidth = 4;
-	gridHeight = 3;
+	gridWidth = 16;
+	gridHeight = 9;
 	setTiles();
 }
 
 void Map::setTiles() {
-	tiles.clear();
-	std::vector < Tile* > firstRow;
-	firstRow.push_back(new Tile("images/test.png", 0, 0, false));
-	firstRow.push_back(new Tile("images/test.png", 0, 480, false));
-	firstRow.push_back(new Tile("images/test.png", 0, 960, false));
-	firstRow.push_back(new Tile("images/test.png", 0, 1440, false));
-	tiles.push_back(firstRow);
+	std::vector<Tile*> grassRow;
+	grassRow.clear();
 
-	std::vector < Tile* > secondRow;
-	secondRow.push_back(new Tile("images/test.png", 270, 0, false));
-	secondRow.push_back(new Tile("images/test.png", 270, 480, false));
-	secondRow.push_back(new Tile("images/test.png", 270, 960, false));
-	secondRow.push_back(new Tile("images/test.png", 270, 1440, false));
-	tiles.push_back(secondRow);
+	grassTiles.clear();
+	for (int i = 0; i < gridWidth; i++) {
+		for (int j = 0; j < gridHeight; j++) {
+			grassRow.push_back(new Tile("images/grassTile.png", i * 120, j * 120,"sounds/grassTileWalk.wav"));
+		}
+		grassTiles.push_back(grassRow);
+		grassRow.clear();
+	}
 
-	std::vector < Tile* > thirdRow;
-	thirdRow.push_back(new Tile("images/test.png", 540, 0, false));
-	thirdRow.push_back(new Tile("images/test.png", 540, 480, false));
-	thirdRow.push_back(new Tile("images/test.png", 540, 960, false));
-	thirdRow.push_back(new Tile("images/test.png", 540, 1440, false));
-	tiles.push_back(thirdRow);
+	std::vector<Tile*> floorRow;
+	floorRow.clear();
+
+	floorTiles.clear();
+	for (int i = 0; i < gridWidth - 4; i++) {
+		for (int j = 0; j < gridHeight - 3; j++) {
+			floorRow.push_back(new Tile("images/floorTile.png", (i+2) * 120, (j+1) * 120, "sounds/floorTileWalk.wav"));
+		}
+		floorTiles.push_back(floorRow);
+		floorRow.clear();
+	}
 }
 
 ///getters

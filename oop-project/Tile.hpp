@@ -1,24 +1,23 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include <string>
+
+#include "MapAsset.hpp"
 
 #ifndef TILE_HPP
 #define TILE_HPP
 
-class Tile {
-	sf::Texture texture;
-	sf::Sprite sprite;
-	bool isPassable; ///check if a tile is passable or not
-
+class Tile : public MapAsset{
+	sf::SoundBuffer tileSoundBuffer;
+	sf::Sound tileSound;
 public:
-	Tile(const std::string& textureName, float x, float y, bool isPassable);
-	~Tile() {};
-	bool setSprite(const std::string& textureName);
 	
+	Tile(const std::string& textureName, float x, float y, const std::string& soundName);
+	~Tile() {};
+
 	///getters
-	sf::Texture getTexture();
-	sf::Sprite getSprite();
-	bool getIsPassable();
+	sf::SoundBuffer getSoundBuffer();
 };
 
 #endif
