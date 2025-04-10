@@ -17,6 +17,8 @@ public:
 	///getters
 	bool getIsPassable();
 
+	///setters
+	void setIsPassable(bool isPassable);
 };
 
 #endif
