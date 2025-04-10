@@ -11,13 +11,14 @@
 class Tile : public MapAsset{
 	sf::SoundBuffer tileSoundBuffer;
 	sf::Sound tileSound;
+
 public:
-	
-	Tile(const std::string& textureName, float x, float y, const std::string& soundName);
+	Tile(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& soundName);
 	~Tile() {};
 
 	///getters
 	sf::SoundBuffer getSoundBuffer();
+	sf::Sound getSound();
 };
 
 #endif

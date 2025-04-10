@@ -11,7 +11,7 @@ protected:
 	sf::Sprite sprite;
 
 public:
-	MapAsset(const std::string& textureName, float x, float y);
+	MapAsset(const std::string& textureName, float x, float y, int sizeX, int sizeY);
 	~MapAsset() {};
 
 	///getters

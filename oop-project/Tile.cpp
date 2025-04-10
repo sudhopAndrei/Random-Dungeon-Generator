@@ -6,7 +6,7 @@
 #include "Tile.hpp"
 #include "MapAsset.hpp"
 
-Tile::Tile(const std::string& textureName, float x, float y, const std::string& soundName) : MapAssets(textureName, x, y), tileSoundBuffer(soundName), tileSound(tileSoundBuffer) {
+Tile::Tile(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& soundName) : MapAsset(textureName, x, y, sizeX, sizeY), tileSoundBuffer(soundName), tileSound(tileSoundBuffer) {
 	tileSound.setVolume(50);
 	tileSound.setLooping(true);
 }
@@ -14,4 +14,8 @@ Tile::Tile(const std::string& textureName, float x, float y, const std::string& 
 ///getters
 sf::SoundBuffer Tile::getSoundBuffer() {
 	return tileSoundBuffer;
+}
+
+sf::Sound Tile::getSound() {
+	return tileSound;
 }
