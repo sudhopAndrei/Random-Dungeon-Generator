@@ -4,8 +4,8 @@
 
 #include "Wall.hpp"
 
-Wall::Wall(const std::string& textureName, float x, float y, int sizeX, int sizeY, bool isPassable) : 
-	MapAsset(textureName, x, y, sizeX, sizeY) {
+Wall::Wall(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& type, bool isPassable) :
+	MapAsset(textureName, x, y, sizeX, sizeY, type) {
 	texture.setRepeated(true);
 	this->isPassable = isPassable;
 }

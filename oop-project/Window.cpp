@@ -6,8 +6,9 @@
 
 #include "Window.hpp"
 
-Window::Window(const std::string& textureName, float x, float y, int sizeX, int sizeY, bool isPassable, const std::string& soundName, bool isBroken) : 
-	Wall(textureName, x, y, sizeX, sizeY, isPassable), windowBreakSoundBuffer(soundName), windowBreakSound(windowBreakSoundBuffer) {
+Window::Window(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& type, bool isPassable, const std::string& soundName, bool isBroken) : 
+	Wall(textureName, x, y, sizeX, sizeY, type, isPassable), windowBreakSoundBuffer(soundName), windowBreakSound(windowBreakSoundBuffer) {
+	this->isBroken = isBroken; 
 	windowBreakSound.setVolume(50);
 	windowBreakSound.setLooping(true);
 }

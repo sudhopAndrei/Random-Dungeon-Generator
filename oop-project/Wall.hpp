@@ -11,7 +11,7 @@ class Wall : public MapAsset {
 	bool isPassable;
 
 public:
-	Wall(const std::string& textureName, float x, float y, int sizeX, int sizeY, bool isPassable);
+	Wall(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& type, bool isPassable);
 	~Wall() {};
 	
 	///getters

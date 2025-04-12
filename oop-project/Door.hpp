@@ -15,7 +15,7 @@ class Door: public Wall {
 	bool isOpen;
 
 public:
-	Door(const std::string& textureName, float x, float y, int sizeX, int sizeY, bool isPassable, const std::string& soundName, bool isOpen);
+	Door(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& type, bool isPassable, const std::string& soundName, bool isOpen);
 	~Door() {};
 
 	void openDoor();

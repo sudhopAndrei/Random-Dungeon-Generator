@@ -35,6 +35,8 @@ int main()
             }
         }
 
+		window.draw(gameMap.getBear()->getSprite());
+
 		///Loop that loads the walls 
 		for (int i = 0; i < gameMap.getWalls().size(); i++)
 		{

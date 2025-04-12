@@ -12,6 +12,7 @@ class Map {
 	const int gridHeight = 9;
 	std::vector < std::vector <Tile*> > grassTiles;
 	std::vector < std::vector <Tile*> > floorTiles;
+	Tile* bear;
 	std::vector < Wall* > walls;
 
 public:
@@ -21,6 +22,7 @@ public:
 	///setters
 	void setGrassTiles();
 	void setFloorTiles();
+	void setBear(Tile* bear);
 	void setWalls();
 	
 	///getters
@@ -28,6 +30,7 @@ public:
 	const int getGridWidth();
 	std::vector < std::vector <Tile*> > getGrassTiles();
 	std::vector < std::vector <Tile*> > getFloorTiles();
+	Tile* getBear();
 	std::vector < Wall* > getWalls();
 };
 

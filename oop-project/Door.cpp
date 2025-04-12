@@ -6,8 +6,8 @@
 
 #include "Door.hpp"
 
-Door::Door(const std::string& textureName, float x, float y, int sizeX, int sizeY, bool isPassable, const std::string& soundName, bool isBroken) :
-	Wall(textureName, x, y, sizeX, sizeY, isPassable), doorSoundBuffer(soundName), doorSound(doorSoundBuffer) {
+Door::Door(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& type, bool isPassable, const std::string& soundName, bool isBroken) :
+	Wall(textureName, x, y, sizeX, sizeY, type, isPassable), doorSoundBuffer(soundName), doorSound(doorSoundBuffer) {
 	doorSound.setVolume(50);
 	doorSound.setLooping(true);
 }

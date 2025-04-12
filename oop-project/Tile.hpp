@@ -13,7 +13,7 @@ class Tile : public MapAsset{
 	sf::Sound tileSound;
 
 public:
-	Tile(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& soundName);
+	Tile(const std::string& textureName, float x, float y, int sizeX, int sizeY,const std::string& type, const std::string& soundName);
 	~Tile() {};
 
 	///getters
