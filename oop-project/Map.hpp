@@ -3,6 +3,7 @@
 
 #include "Tile.hpp"
 #include "MapAsset.hpp"
+#include "Actor.hpp"
 
 #ifndef MAP_HPP
 #define MAP_HPP
@@ -12,6 +13,7 @@ class Map {
 	std::vector <Tile*> floorTiles;
 	Tile* bearTile;
 	std::vector < MapAsset* > walls;
+	std::vector < Actor* > actors;
 
 public:
 	Map();
@@ -22,12 +24,14 @@ public:
 	void setFloorTiles();
 	void setBearTile(Tile* bearTile);
 	void setWalls();
+	void setActors();
 	
 	///getters
 	Tile* getGrassTiles();
 	std::vector <Tile*> getFloorTiles();
 	Tile* getBearTile();
 	std::vector < MapAsset* > getWalls();
+	std::vector < Actor* > getActors();
 };
 
 #endif

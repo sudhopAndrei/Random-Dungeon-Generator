@@ -9,6 +9,8 @@ Map::Map() {
 	setFloorTiles();
 	setBearTile(bearTile);
 	setWalls();
+
+	setActors();
 }
 
 void Map::setGrassTiles(Tile* grassTile) {
@@ -45,6 +47,11 @@ void Map::setWalls() {
 	walls.push_back(new MapAsset("images/wall.png", 240, 465, 345, 30,"wall"));
 	walls.push_back(new MapAsset("images/wall.png", 240, 810, 660, 30, "wall"));
 	walls.push_back(new MapAsset("images/wall.png", 1020, 810, 660, 30, "wall"));
+}
+
+void Map::setActors() {
+    actors.clear();
+
 }
 
 Tile* Map::getGrassTiles() {
