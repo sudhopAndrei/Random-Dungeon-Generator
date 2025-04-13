@@ -17,31 +17,21 @@ int main()
     {
         window.clear();
 
-        ///Nested loop that loads the grass tiles
-        for (int i = 0; i < gameMap.getGridWidth(); i++)
+		window.draw(gameMap.getGrassTiles()->getSprite());
+
+        for (int i = 0; i < gameMap.getFloorTiles().size(); i++)
         {
-            for (int j = 0; j < gameMap.getGridHeight(); j++)
-            {
-                window.draw(gameMap.getGrassTiles()[i][j]->getSprite());
-            }
+            window.draw(gameMap.getFloorTiles()[i]->getSprite());
         }
 
-		///Nested loop that loads the floor tiles 
-        for (int i = 0; i < gameMap.getGridWidth()-4; i++)
-        {
-            for (int j = 0; j < gameMap.getGridHeight()-3; j++)
-            {
-                window.draw(gameMap.getFloorTiles()[i][j]->getSprite());
-            }
-        }
-
-		window.draw(gameMap.getBear()->getSprite());
+		window.draw(gameMap.getBearTile()->getSprite());
 
 		///Loop that loads the walls 
 		for (int i = 0; i < gameMap.getWalls().size(); i++)
 		{
             window.draw(gameMap.getWalls()[i]->getSprite());
 		}
+
         window.display();
     }
 }

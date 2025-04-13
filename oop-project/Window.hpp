@@ -4,18 +4,18 @@
 #include <iostream>
 #include <string>
 
-#include "Wall.hpp"
+#include "MapAsset.hpp"
 
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
 
-class Window : public Wall {
+class Window : public MapAsset {
 	sf::SoundBuffer windowBreakSoundBuffer;
 	sf::Sound windowBreakSound;
 	bool isBroken;
 
 public:
-	Window(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& type, bool isPassable, const std::string& soundName, bool isBroken);
+	Window(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& type, const std::string& soundName, bool isBroken);
 	~Window() {};
 
 	void breakWindow();

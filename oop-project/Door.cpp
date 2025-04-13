@@ -6,8 +6,8 @@
 
 #include "Door.hpp"
 
-Door::Door(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& type, bool isPassable, const std::string& soundName, bool isBroken) :
-	Wall(textureName, x, y, sizeX, sizeY, type, isPassable), doorSoundBuffer(soundName), doorSound(doorSoundBuffer) {
+Door::Door(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& type, const std::string& soundName, bool isOpen) :
+	MapAsset(textureName, x, y, sizeX, sizeY, type), doorSoundBuffer(soundName), doorSound(doorSoundBuffer) {
 	doorSound.setVolume(50);
 	doorSound.setLooping(true);
 }
@@ -15,7 +15,6 @@ Door::Door(const std::string& textureName, float x, float y, int sizeX, int size
 void Door::openDoor() {
 	if (isOpen == false) {
 		///if abs(playerPos-DoorPos) < 50px poate apasa key -> se deschide usa
-		Door::setIsPassable(true);
 		doorSound.play();
 		isOpen = true;
 	}
@@ -24,7 +23,6 @@ void Door::openDoor() {
 void Door::closeDoor() {
 	if (isOpen == true) {
 		///if abs(playerPos-DoorPos) < 50px poate apasa key -> se inchide usa
-		Door::setIsPassable(false);
 		doorSound.play();
 		isOpen = false;
 	}

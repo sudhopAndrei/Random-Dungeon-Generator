@@ -142,7 +142,6 @@
     <ClCompile Include="MapAsset.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Tile.hpp" />
-    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -150,7 +149,6 @@
     <ClInclude Include="Door.hpp" />
     <ClInclude Include="Map.hpp" />
     <ClInclude Include="MapAsset.hpp" />
-    <ClInclude Include="Wall.hpp" />
     <ClInclude Include="Window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
