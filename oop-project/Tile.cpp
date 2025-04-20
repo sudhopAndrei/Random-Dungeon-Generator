@@ -12,6 +12,10 @@ Tile::Tile(const std::string& textureName, float x, float y, int sizeX, int size
 	tileSound.setLooping(true);
 }
 
+Tile::~Tile() {
+	delete this;
+}	
+
 ///getters
 sf::SoundBuffer Tile::getSoundBuffer() {
 	return tileSoundBuffer;

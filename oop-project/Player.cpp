@@ -9,24 +9,29 @@ Player::Player(const std::string& textureName, sf::Vector2f spawnPosition, bool 
 	this->hasItem = hasItem;
 }
 
-void Player::handleMovement() {
-	sf::Vector2f movement(0.f, 0.f);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-		movement.y -= 1.f;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-		movement.y += 1.f;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-		movement.x -= 1.f;
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-		movement.x += 1.f;
-	}
-	sprite.move(movement);
+void Player::handleMovement(sf::Sprite sprite) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+    {
+        this->sprite.move({ 0.f, -0.1f });
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+    {
+        this->sprite.move({ -0.1f, 0.f });
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+    {
+        this->sprite.move({ 0.f, 0.1f });
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+    {
+        this->sprite.move({ 0.1f, 0.f });
+    }
 }
 
-///getters
+//getters
 bool Player::getIsHidden() {
 	return isHidden;
 }
@@ -34,7 +39,7 @@ bool Player::getHasItem() {
 	return hasItem;
 }
 
-///setters
+//setters
 void Player::setIsHidden(bool isHidden) {
 	this->isHidden = isHidden;
 }

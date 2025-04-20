@@ -7,9 +7,10 @@
 Actor::Actor(const std::string& textureName, sf::Vector2f spawnPosition) : texture(textureName), sprite(texture) {
 	texture.setSmooth(true);
 	sprite.setPosition(spawnPosition);
+	sprite.setTextureRect(sf::IntRect({ 30, 30 }, { 30, 30 }));
 }
 
-///getters
+//getters
 sf::Texture Actor::getTexture() {
 	return texture;
 }

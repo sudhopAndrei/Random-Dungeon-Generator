@@ -16,7 +16,7 @@ public:
 	Actor(const std::string& texturePath, sf::Vector2f spawnPosition);
 	~Actor() {};
 
-	///gettrs
+	//getters
 	sf::Texture getTexture();
 	sf::Sprite getSprite();
 	sf::Vector2f getSpawnPosition();

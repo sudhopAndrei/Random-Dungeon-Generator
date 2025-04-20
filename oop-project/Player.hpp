@@ -4,8 +4,8 @@
 
 #include "Actor.hpp"
 
-#ifndef PLAYER.HPP
-#define PLAYER.HPP
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
 
 class Player : public Actor {
 	bool isHidden;
@@ -15,13 +15,13 @@ public:
 	Player(const std::string& texturePath, sf::Vector2f spawnPosition, bool isHidden, bool hasItem);
 	~Player() {};
 
-	void handleMovement();
+	void handleMovement(sf::Sprite sprite);
 
-	///getters
+	//getters
 	bool getIsHidden();
 	bool getHasItem();
 
-	///setters
+	//setters
 	void setIsHidden(bool isHidden);
 	void setHasItem(bool hasItem);
 };
