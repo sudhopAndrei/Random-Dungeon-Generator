@@ -6,6 +6,7 @@
 #include "MapAsset.hpp"
 #include "Actor.hpp"
 #include "Player.hpp"
+#include "Collision.h"
 
 #ifndef MAP_HPP
 #define MAP_HPP
@@ -20,6 +21,7 @@ class Map {
 public:
 	Map();
 	~Map() {};
+	void checkCollision();
 
 	//setters
 	void setGrassTiles(Tile* grassTile);

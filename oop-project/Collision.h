@@ -1,9 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <vector>
-
-#include "Map.hpp"
-#include "Actor.hpp"
 
 #ifndef COLLISION_H
 #define COLLISION_H

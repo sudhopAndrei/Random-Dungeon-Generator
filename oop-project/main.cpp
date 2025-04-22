@@ -8,8 +8,8 @@
 int main()
 {
     //Window and cursor settings
-    sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML", sf::State::Fullscreen);
-    window.setMouseCursorVisible(false); 
+    sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML", sf::State::Windowed);
+    window.setMouseCursorVisible(true); 
 
     //Initialize the game map
     Map gameMap;
@@ -42,10 +42,11 @@ int main()
 		{
             window.draw(gameMap.getWalls()[i]->getSprite());
 		}
-
+        
 		//Drawing the player
         window.draw(gameMap.getPlayer()->getSprite());
 		gameMap.getPlayer()->handleMovement(gameMap.getPlayer()->getSprite());
+		gameMap.checkCollision();
 
         window.display();
     }

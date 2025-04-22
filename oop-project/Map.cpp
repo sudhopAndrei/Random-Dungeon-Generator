@@ -49,7 +49,16 @@ void Map::setWalls() {
 }
 
 void Map::setPlayer(Player* player) {
-	this->player = new Player("images/bear.png", sf::Vector2f(0, 0), false, false);
+	this->player = new Player("images/bear.png", sf::Vector2f(30, 30), false, false);
+}
+
+void Map::checkCollision() {
+	Collision* collisionInstance = new Collision();
+	for (int i = 0; i < this->walls.size(); i++) {
+		if (collisionInstance->isColliding(this->player->getSprite(), this->walls[i]->getSprite())) {
+			std::cout << "Collision detected with wall!" << std::endl;
+		}
+	}
 }
 
 Tile* Map::getGrassTiles() {
