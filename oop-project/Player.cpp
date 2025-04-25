@@ -4,28 +4,29 @@
 
 #include "Player.hpp"
 
-Player::Player(const std::string& textureName, sf::Vector2f spawnPosition, bool isHidden, bool hasItem) : Actor(textureName, spawnPosition) {
-	this->isHidden = isHidden;
+Player::Player(const std::string& textureName, sf::Vector2f spawnPosition, bool isHidden, bool hasItem) :
+    Actor(textureName, spawnPosition), canMoveUp(true), canMoveLeft(true), canMoveRight(true), canMoveDown(true) {
+    this->isHidden = isHidden;
 	this->hasItem = hasItem;
 }
 
 void Player::handleMovement(sf::Sprite sprite) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && canMoveUp == true)
     {
         this->sprite.move({ 0.f, -0.1f });
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) && canMoveLeft == true)
     {
         this->sprite.move({ -0.1f, 0.f });
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && canMoveDown == true)
     {
         this->sprite.move({ 0.f, 0.1f });
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) && canMoveRight == true)
     {
         this->sprite.move({ 0.1f, 0.f });
     }
@@ -40,6 +41,18 @@ bool Player::getHasItem() {
 }
 
 //setters
+void Player::setCanMoveUp(bool canMoveUp) {
+	this->canMoveUp = canMoveUp;
+}
+void Player::setCanMoveLeft(bool canMoveLeft) {
+	this->canMoveLeft = canMoveLeft;
+}
+void Player::setCanMoveRight(bool canMoveRight) {
+	this->canMoveRight = canMoveRight;
+}
+void Player::setCanMoveDown(bool canMoveDown) {
+	this->canMoveDown = canMoveDown;
+}
 void Player::setIsHidden(bool isHidden) {
 	this->isHidden = isHidden;
 }

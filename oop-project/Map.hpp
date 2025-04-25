@@ -15,13 +15,14 @@ class Map {
 	Tile* grassTile;
 	std::vector <Tile*> floorTiles;
 	Tile* bearTile;
-	std::vector < MapAsset* > walls;
+	std::vector < MapAsset* > verticalWalls;
+	std::vector < MapAsset* > horizontalWalls;
 	Player* player;
 
 public:
 	Map();
 	~Map() {};
-	void checkCollision();
+	void handlePlayerCollision();
 
 	//setters
 	void setGrassTiles(Tile* grassTile);
@@ -34,7 +35,8 @@ public:
 	Tile* getGrassTiles();
 	std::vector <Tile*> getFloorTiles();
 	Tile* getBearTile();
-	std::vector < MapAsset* > getWalls();
+	std::vector < MapAsset* > getVerticalWalls();
+	std::vector < MapAsset* > getHorizontalWalls();
 	Player* getPlayer();
 };
 

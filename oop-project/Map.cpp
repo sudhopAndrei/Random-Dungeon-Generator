@@ -28,35 +28,63 @@ void Map::setBearTile(Tile* bearTile) {
 }
 
 void Map::setWalls() {
-	walls.clear();
+	verticalWalls.clear();
+	horizontalWalls.clear();
 	
 	///vertical walls placement
-	walls.push_back(new MapAsset("images/wall.png", 240.f, 120.f, 30, 720,"wall"));
+	verticalWalls.push_back(new MapAsset("images/wall.png", 240.f, 120.f, 30, 720,"wall"));
 
-	walls.push_back(new MapAsset("images/wall.png", 585.f, 120.f, 30, 215,"wall"));
-	walls.push_back(new MapAsset("images/wall.png", 585.f, 455.f, 30, 50, "wall"));
-	walls.push_back(new MapAsset("images/wall.png", 585.f, 625.f, 30, 215, "wall"));
+	verticalWalls.push_back(new MapAsset("images/wall.png", 585.f, 120.f, 30, 215,"wall"));
+	verticalWalls.push_back(new MapAsset("images/wall.png", 585.f, 455.f, 30, 50, "wall"));
+	verticalWalls.push_back(new MapAsset("images/wall.png", 585.f, 625.f, 30, 215, "wall"));
 	
-	walls.push_back(new MapAsset("images/wall.png", 1320.f, 120.f, 30, 720,"wall"));
-	walls.push_back(new MapAsset("images/wall.png", 1650.f, 120.f, 30, 720,"wall"));
+	verticalWalls.push_back(new MapAsset("images/wall.png", 1320.f, 120.f, 30, 720,"wall"));
+	verticalWalls.push_back(new MapAsset("images/wall.png", 1650.f, 120.f, 30, 720,"wall"));
 
 	///horizontal walls placement
-	walls.push_back(new MapAsset("images/wall.png", 240.f, 120.f, 1440, 30,"wall"));
-	walls.push_back(new MapAsset("images/wall.png", 1350.f, 360.f, 315, 30, "wall"));
-	walls.push_back(new MapAsset("images/wall.png", 240.f, 465.f, 345, 30,"wall"));
-	walls.push_back(new MapAsset("images/wall.png", 240.f, 810.f, 660, 30, "wall"));
-	walls.push_back(new MapAsset("images/wall.png", 1020.f, 810.f, 660, 30, "wall"));
+	horizontalWalls.push_back(new MapAsset("images/wall.png", 240.f, 120.f, 1440, 30,"wall"));
+	horizontalWalls.push_back(new MapAsset("images/wall.png", 1350.f, 360.f, 315, 30, "wall"));
+	horizontalWalls.push_back(new MapAsset("images/wall.png", 240.f, 465.f, 345, 30,"wall"));
+	horizontalWalls.push_back(new MapAsset("images/wall.png", 240.f, 810.f, 660, 30, "wall"));
+	horizontalWalls.push_back(new MapAsset("images/wall.png", 1020.f, 810.f, 660, 30, "wall"));
 }
 
 void Map::setPlayer(Player* player) {
 	this->player = new Player("images/bear.png", sf::Vector2f(30, 30), false, false);
 }
 
-void Map::checkCollision() {
+void Map::handlePlayerCollision() {
 	Collision* collisionInstance = new Collision();
-	for (int i = 0; i < this->walls.size(); i++) {
-		if (collisionInstance->isColliding(this->player->getSprite(), this->walls[i]->getSprite())) {
-			std::cout << "Collision detected with wall!" << std::endl;
+
+	//handle collision with horizontal walls
+	for (int i = 0; i < this->horizontalWalls.size(); i++) {
+		if (collisionInstance->isColliding(this->player->getSprite(), this->horizontalWalls[i]->getSprite())) {
+			std::cout << "Collision detected" << std::endl;
+			if (this->player->getSprite().getGlobalBounds().position.y > this->horizontalWalls[i]->getSprite().getPosition().y) 
+				this->player->setCanMoveUp(false);
+			else
+				this->player->setCanMoveDown(false);
+			break;
+		}
+		else {
+			this->player->setCanMoveUp(true);
+			this->player->setCanMoveDown(true);
+		}
+	}
+
+	//handle collision with vertical walls
+	for (int i = 0; i < this->verticalWalls.size(); i++) {
+		if (collisionInstance->isColliding(this->player->getSprite(), this->verticalWalls[i]->getSprite())) {
+			std::cout << "Collision detected" << std::endl;
+			if (this->player->getSprite().getGlobalBounds().position.x < this->verticalWalls[i]->getSprite().getPosition().x)
+				this->player->setCanMoveRight(false);
+			else
+				this->player->setCanMoveLeft(false);
+			break;
+		}
+		else {
+			this->player->setCanMoveLeft(true);
+			this->player->setCanMoveRight(true);
 		}
 	}
 }
@@ -70,8 +98,11 @@ std::vector <Tile*> Map::getFloorTiles() {
 Tile* Map::getBearTile() {
 	return bearTile;
 }
-std::vector < MapAsset* > Map::getWalls() {
-	return walls;
+std::vector < MapAsset* > Map::getVerticalWalls() {
+	return verticalWalls;
+}
+std::vector < MapAsset* > Map::getHorizontalWalls() {
+	return horizontalWalls;
 }
 Player*  Map::getPlayer() {
 	return player;

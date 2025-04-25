@@ -37,19 +37,24 @@ int main()
         //Drawing the bear carpet tile
 		window.draw(gameMap.getBearTile()->getSprite());
 
-		//Loop that loads the walls 
-		for (int i = 0; i < gameMap.getWalls().size(); i++)
+		//Loop that loads the vertical walls 
+		for (int i = 0; i < gameMap.getVerticalWalls().size(); i++)
 		{
-            window.draw(gameMap.getWalls()[i]->getSprite());
+            window.draw(gameMap.getVerticalWalls()[i]->getSprite());
 		}
+
+		//Loop that loads the horizontal walls
+        for (int i = 0; i < gameMap.getHorizontalWalls().size(); i++)
+        {
+            window.draw(gameMap.getHorizontalWalls()[i]->getSprite());
+        }
         
-		//Drawing the player
+		//Drawing the player and handling movement and collision
         window.draw(gameMap.getPlayer()->getSprite());
 		gameMap.getPlayer()->handleMovement(gameMap.getPlayer()->getSprite());
-		gameMap.checkCollision();
+		gameMap.handlePlayerCollision();
 
         window.display();
     }
-
 }
 
