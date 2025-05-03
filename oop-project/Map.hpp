@@ -15,13 +15,17 @@ class Map {
 	Tile* grassTile;
 	std::vector <Tile*> floorTiles;
 	Tile* bearTile;
-	std::vector < MapAsset* > verticalWalls;
-	std::vector < MapAsset* > horizontalWalls;
+	std::vector < MapAsset* > walls;
 	Player* player;
+	Collision playerCollisionInstance;
+
+	//private helper methods
+	void setCollisionType(Actor* actor, MapAsset* wall);
 
 public:
 	Map();
 	~Map() {};
+
 	void handlePlayerCollision();
 
 	//setters
@@ -35,8 +39,7 @@ public:
 	Tile* getGrassTiles();
 	std::vector <Tile*> getFloorTiles();
 	Tile* getBearTile();
-	std::vector < MapAsset* > getVerticalWalls();
-	std::vector < MapAsset* > getHorizontalWalls();
+	std::vector < MapAsset* > getWalls();
 	Player* getPlayer();
 };
 

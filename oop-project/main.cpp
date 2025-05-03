@@ -8,7 +8,7 @@
 int main()
 {
     //Window and cursor settings
-    sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML", sf::State::Windowed);
+    sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML", sf::State::Fullscreen);
     window.setMouseCursorVisible(true); 
 
     //Initialize the game map
@@ -38,21 +38,16 @@ int main()
 		window.draw(gameMap.getBearTile()->getSprite());
 
 		//Loop that loads the vertical walls 
-		for (int i = 0; i < gameMap.getVerticalWalls().size(); i++)
+		for (int i = 0; i < gameMap.getWalls().size(); i++)
 		{
-            window.draw(gameMap.getVerticalWalls()[i]->getSprite());
+            window.draw(gameMap.getWalls()[i]->getSprite());
 		}
-
-		//Loop that loads the horizontal walls
-        for (int i = 0; i < gameMap.getHorizontalWalls().size(); i++)
-        {
-            window.draw(gameMap.getHorizontalWalls()[i]->getSprite());
-        }
         
 		//Drawing the player and handling movement and collision
         window.draw(gameMap.getPlayer()->getSprite());
-		gameMap.getPlayer()->handleMovement(gameMap.getPlayer()->getSprite());
-		gameMap.handlePlayerCollision();
+        gameMap.handlePlayerCollision();
+		gameMap.getPlayer()->handleMovement();
+       
 
         window.display();
     }

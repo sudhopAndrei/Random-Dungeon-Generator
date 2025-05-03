@@ -11,10 +11,24 @@ protected:
 	sf::Texture texture;
 	sf::Sprite sprite;
 	sf::Vector2f spawnPosition;
+
+	bool canMoveUp;
+	bool canMoveLeft;
+	bool canMoveRight;
+	bool canMoveDown;
 	
 public:
 	Actor(const std::string& texturePath, sf::Vector2f spawnPosition);
 	~Actor() {};
+
+	//reset the movement
+	void resetUp();
+	void resetDown();
+	void resetLeft();
+	void resetRight();
+
+	//reset all flags
+	void resetMovementFlags();
 
 	//getters
 	sf::Texture getTexture();
@@ -22,4 +36,4 @@ public:
 	sf::Vector2f getSpawnPosition();
 };
 
-#endif 
+#endif
