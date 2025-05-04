@@ -19,9 +19,9 @@ protected:
 	
 public:
 	Actor(const std::string& texturePath, sf::Vector2f spawnPosition);
-	~Actor() {};
+	virtual ~Actor() {};
 
-	//reset the movement
+	//block the movement
 	void blockMovementUp();
 	void blockMovementDown();
 	void blockMovementLeft();
@@ -34,6 +34,12 @@ public:
 	sf::Texture getTexture();
 	sf::Sprite getSprite();
 	sf::Vector2f getSpawnPosition();
+
+	bool getCanMoveUp();
+	bool getCanMoveLeft();
+	bool getCanMoveRight();
+	bool getCanMoveDown();
 };
 
 #endif
+

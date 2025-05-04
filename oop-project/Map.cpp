@@ -10,8 +10,7 @@ Map::Map() {
 	setFloorTiles();
 	setBearTile(bearTile);
 	setWalls();
-	setPlayer(player);
-	setEnemies();
+	setActors();
 }
 
 //initialize the grass tiles
@@ -54,9 +53,20 @@ void Map::setWalls() {
 	walls.push_back(new MapAsset("images/wall.png", 1020.f, 810.f, 660, 30, "wall"));
 }
 
-//initialize the player
-void Map::setPlayer(Player* player) {
-	this->player = new Player("images/bear.png", sf::Vector2f(30, 30), false);
+//initialize the actprs (player and enemies)
+void Map::setActors() {
+	actors.clear();
+
+	actors.push_back(new Player("images/bear.png", sf::Vector2f(30, 30), false));
+
+	actors.push_back(new Enemy("images/bear.png", 100, 10));
+	actors.push_back(new Enemy("images/bear.png", 100, 10));
+	actors.push_back(new Enemy("images/bear.png", 100, 10));
+	actors.push_back(new Enemy("images/bear.png", 100, 10));
+	actors.push_back(new Enemy("images/bear.png", 100, 10));
+	actors.push_back(new Enemy("images/bear.png", 100, 10));
+	actors.push_back(new Enemy("images/bear.png", 100, 10));
+	actors.push_back(new Enemy("images/bear.png", 100, 10));
 }
 
 //get the collision type (vertical or horizontal) between an actor and a collidable object
@@ -84,71 +94,56 @@ void Map::setCollisionType(Actor* actor, MapAsset* wall) {
 
 	//the longer collision is picked (one of them will always tend to 0)
 	if (horizontalCollision > verticalCollision) {
-		wall->setIsHorizontalCollision(true);
+		this->CollisionInstance.setIsHorizontalCollision(true);
 	}
-	else if (horizontalCollision < verticalCollision) {
-		wall->setIsVerticalCollision(true);
+
+	if (horizontalCollision < verticalCollision) {
+		this->CollisionInstance.setIsVerticalCollision(true);
 	}
 }
 
 //handle the actor collision with the collidable instances
-void Map::handlePlayerCollision() {
-	bool collisionDetected = false;
+void Map::handleActorCollision() {
 
-	for (int i = 0; i < this->walls.size(); i++) {
+	for (int i = 0; i < actors.size(); i++) {
+		bool collisionDetected = false;
 
-		//if there is collision, set the collision type for the wall
-		if (this->playerCollisionInstance.isColliding(this->player->getSprite(), this->walls[i]->getSprite())) {
-			Map::setCollisionType(this->player, this->walls[i]);
-			this->walls[i]->setHasCollision(true);
-			collisionDetected = true;
+		for (int j = 0; j < this->walls.size(); j++) {
+
+			//if there is collision, set the collision type for the wall
+			if (this->CollisionInstance.isColliding(this->actors[i]->getSprite(), this->walls[j]->getSprite())) {
+				Map::setCollisionType(this->actors[i], this->walls[j]);
+
+				//calculates if the player is above or below the wall
+				if (this->CollisionInstance.getIsVerticalCollision() == true) {
+					if (this->actors[i]->getSprite().getGlobalBounds().position.y > this->walls[j]->getSprite().getGlobalBounds().position.y) {
+						this->actors[i]->blockMovementUp();
+					}
+					else if (this->actors[i]->getSprite().getGlobalBounds().position.y < this->walls[j]->getSprite().getGlobalBounds().position.y) {
+						this->actors[i]->blockMovementDown();
+					}
+				}
+
+				//calculates if the player is left or right of the wall
+				if (this->CollisionInstance.getIsHorizontalCollision() == true) {
+					if (this->actors[i]->getSprite().getGlobalBounds().position.x < this->walls[j]->getSprite().getGlobalBounds().position.x) {
+						this->actors[i]->blockMovementRight();
+					}
+					else if (this->actors[i]->getSprite().getGlobalBounds().position.x > this->walls[j]->getSprite().getGlobalBounds().position.x) {
+						this->actors[i]->blockMovementLeft();
+					}
+				}
+				collisionDetected = true;
+			}
 		}
 
-		//calculates if the player is above or below the wall
-		if (this->walls[i]->getIsVerticalCollision() == true) {
-			if (this->player->getSprite().getGlobalBounds().position.y > this->walls[i]->getSprite().getGlobalBounds().position.y) {
-				this->player->blockMovementUp();
-			}
-			else if (this->player->getSprite().getGlobalBounds().position.y < this->walls[i]->getSprite().getGlobalBounds().position.y) {
-				this->player->blockMovementDown();
-			}
-		}
-
-		//calculates if the player is left or right of the wall
-		if (this->walls[i]->getIsHorizontalCollision() == true) {
-			if (this->player->getSprite().getGlobalBounds().position.x < this->walls[i]->getSprite().getGlobalBounds().position.x) {
-				this->player->blockMovementRight();
-			}
-			else if (this->player->getSprite().getGlobalBounds().position.x > this->walls[i]->getSprite().getGlobalBounds().position.x) {
-				this->player->blockMovementLeft();
-			}
+		//if no collision is detected, reset the movement flags
+		if (collisionDetected == false) {
+			this->CollisionInstance.setIsVerticalCollision(false);
+			this->CollisionInstance.setIsHorizontalCollision(false);
+			this->actors[i]->resetMovementFlags();
 		}
 	}
-		
-	//if no collision is detected, reset the movement flags
-	if (collisionDetected == false) {
-		for (int i = 0; i < this->walls.size(); i++) {
-			this->walls[i]->setIsVerticalCollision(false);
-			this->walls[i]->setIsHorizontalCollision(false);
-			this->walls[i]->setHasCollision(false);
-		}
-		this->player->resetMovementFlags();
-	}
-}
-
-void Map::setEnemies() {
-	enemies.clear();
-
-	enemies.push_back(new Enemy("images/bear.png", 100, 10));
-	enemies.push_back(new Enemy("images/bear.png", 100, 10));
-	enemies.push_back(new Enemy("images/bear.png", 100, 10));
-	enemies.push_back(new Enemy("images/bear.png", 100, 10));
-	enemies.push_back(new Enemy("images/bear.png", 100, 10));
-	enemies.push_back(new Enemy("images/bear.png", 100, 10));
-	enemies.push_back(new Enemy("images/bear.png", 100, 10));
-	enemies.push_back(new Enemy("images/bear.png", 100, 10));
-
-
 }
 
 Tile* Map::getGrassTiles() {
@@ -163,9 +158,23 @@ Tile* Map::getBearTile() {
 std::vector < MapAsset* > Map::getWalls() {
 	return walls;
 }
-Player*  Map::getPlayer() {
-	return player;
+Player* Map::getPlayer() {
+	for (int i = 0; i < actors.size(); i++) {
+		Player* player = dynamic_cast<Player*>(actors[i]);
+		if (player != nullptr) {
+			return player;
+		}
+	}
 }
-std::vector < Enemy* > Map::getEnemies() {
+std::vector<Enemy*> Map::getEnemies() {
+	enemies.clear();
+
+	for (int i = 0; i < actors.size(); i++) {
+
+		Enemy* enemy = dynamic_cast<Enemy*>(actors[i]);
+		if (enemy != nullptr) {
+			enemies.push_back(enemy);
+		}
+	}
 	return enemies;
 }

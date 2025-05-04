@@ -5,7 +5,7 @@
 #include "Actor.hpp"
 
 Actor::Actor(const std::string& textureName, sf::Vector2f spawnPosition) : texture(textureName), sprite(texture),
-		canMoveUp(true), canMoveLeft(true), canMoveRight(true), canMoveDown(true) {
+	canMoveUp(true), canMoveLeft(true), canMoveRight(true), canMoveDown(true) {
 	texture.setSmooth(true);
 	sprite.setPosition(spawnPosition);
 	sprite.setTextureRect(sf::IntRect({ 30, 30 }, { 30, 30 }));
@@ -42,11 +42,22 @@ void Actor::resetMovementFlags() {
 sf::Texture Actor::getTexture() {
 	return texture;
 }
-
 sf::Sprite Actor::getSprite() {
 	return sprite;
 }
-
 sf::Vector2f Actor::getSpawnPosition() {
 	return spawnPosition;
+}
+
+bool Actor::getCanMoveUp() {
+	return canMoveUp;
+}
+bool Actor::getCanMoveLeft() {
+	return canMoveLeft;
+}
+bool Actor::getCanMoveRight() {
+	return canMoveRight;
+}
+bool Actor::getCanMoveDown() {
+	return canMoveDown;
 }

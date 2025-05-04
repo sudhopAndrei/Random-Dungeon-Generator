@@ -29,3 +29,18 @@ bool Collision::isColliding(sf::Sprite actorSprite, sf::Sprite assetSprite) {
 		!Collision::isLeft(actorSprite, assetSprite) &&
 		!Collision::isRight(actorSprite, assetSprite));
 }
+
+bool Collision::getIsVerticalCollision() {
+	return isVerticalCollision;
+}
+bool Collision::getIsHorizontalCollision() {
+	return isHorizontalCollision;
+}
+
+//setters
+void Collision::setIsVerticalCollision(bool isVerticalCollision) {
+	this->isVerticalCollision = isVerticalCollision;
+}
+void Collision::setIsHorizontalCollision(bool isHorizontalCollision) {
+	this->isHorizontalCollision = isHorizontalCollision;
+}

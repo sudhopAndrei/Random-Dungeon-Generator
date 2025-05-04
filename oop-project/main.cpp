@@ -10,7 +10,7 @@ int main()
 {
     //Window and cursor settings
     sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML", sf::State::Fullscreen);
-    window.setMouseCursorVisible(true); 
+    window.setMouseCursorVisible(false); 
 
     //Initialize the game map
     Map gameMap;
@@ -57,7 +57,7 @@ int main()
         
 		//Drawing the player and handling movement and collision
         window.draw(gameMap.getPlayer()->getSprite());
-        gameMap.handlePlayerCollision();
+        gameMap.handleActorCollision();
 		gameMap.getPlayer()->handleMovement();
 
 		//Drawing the enemy

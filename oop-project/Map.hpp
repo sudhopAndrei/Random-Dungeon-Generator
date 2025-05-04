@@ -18,8 +18,9 @@ class Map {
 	Tile* bearTile;
 	std::vector < MapAsset* > walls;
 	Player* player;
+	std::vector < Actor* > actors;
 	std::vector < Enemy* > enemies;
-	Collision playerCollisionInstance;
+	Collision CollisionInstance;
 
 	//private helper methods
 	void setCollisionType(Actor* actor, MapAsset* wall);
@@ -28,15 +29,14 @@ public:
 	Map();
 	~Map() {};
 
-	void handlePlayerCollision();
+	void handleActorCollision();
 
 	//setters
 	void setGrassTiles(Tile* grassTile);
 	void setFloorTiles();
 	void setBearTile(Tile* bearTile);
 	void setWalls();
-	void setPlayer(Player* player);
-	void setEnemies();
+	void setActors();
 
 	//getters
 	Tile* getGrassTiles();
