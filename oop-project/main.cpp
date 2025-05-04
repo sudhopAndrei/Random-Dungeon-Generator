@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 #include "Map.hpp"
 #include "Actor.hpp"
@@ -13,6 +14,10 @@ int main()
 
     //Initialize the game map
     Map gameMap;
+
+    //timestamps for timed events
+    auto lastTime = std::chrono::steady_clock::now();
+    const std::chrono::seconds changeInterval(3);
 
     //Main game loop in which every event and entity is rendered
     while (window.isOpen())
@@ -58,8 +63,20 @@ int main()
 		//Drawing the enemy
 		for (int i = 0; i < gameMap.getEnemies().size(); i++)
 		{
-			window.draw(gameMap.getEnemies()[i]->getSprite());
+			window.draw(gameMap.getEnemies()[i]->getSprite());		
+
+            gameMap.getEnemies()[i]->handleMovement();
 		}
+		
+		//Change the direction of the enemies every 3 seconds
+        auto currentTime = std::chrono::steady_clock::now();
+
+        if (currentTime - lastTime >= changeInterval) {
+            for (int i = 0; i < gameMap.getEnemies().size(); i++) {
+                gameMap.getEnemies()[i]->changeDirection();
+            }
+            lastTime = currentTime;
+        }
 
         window.display();
     }

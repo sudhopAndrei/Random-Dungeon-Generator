@@ -143,6 +143,12 @@ void Map::setEnemies() {
 	enemies.push_back(new Enemy("images/bear.png", 100, 10));
 	enemies.push_back(new Enemy("images/bear.png", 100, 10));
 	enemies.push_back(new Enemy("images/bear.png", 100, 10));
+	enemies.push_back(new Enemy("images/bear.png", 100, 10));
+	enemies.push_back(new Enemy("images/bear.png", 100, 10));
+	enemies.push_back(new Enemy("images/bear.png", 100, 10));
+	enemies.push_back(new Enemy("images/bear.png", 100, 10));
+
+
 }
 
 Tile* Map::getGrassTiles() {

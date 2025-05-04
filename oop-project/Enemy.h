@@ -8,6 +8,10 @@
 #define ENEMY_H
 
 class Enemy : public Actor {
+	//vertical and horizontal movement indexes (-1 -> up+left, 0 -> idle, 1 -> down+right)
+	int horizontalDirection;
+	int verticalDirection;
+
 	int hitpoints;
 	int damage;
 
@@ -16,6 +20,7 @@ public:
 	~Enemy() {};
 
 	sf::Vector2f spawnEnemy();
+	void changeDirection();
 	void handleMovement();
 
 	//getters
