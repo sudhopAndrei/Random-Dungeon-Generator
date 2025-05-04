@@ -11,6 +11,7 @@ Map::Map() {
 	setBearTile(bearTile);
 	setWalls();
 	setPlayer(player);
+	setEnemies();
 }
 
 //initialize the grass tiles
@@ -63,6 +64,7 @@ void Map::setCollisionType(Actor* actor, MapAsset* wall) {
 	float horizontalCollision;
 	float verticalCollision;
 
+	//calculates the lenght for vertical collisions (x-axis movement)
 	verticalCollision = std::min(
 		actor->getSprite().getGlobalBounds().position.x + actor->getSprite().getGlobalBounds().size.x,
 		wall->getSprite().getGlobalBounds().position.x + wall ->getSprite().getGlobalBounds().size.x
@@ -71,6 +73,7 @@ void Map::setCollisionType(Actor* actor, MapAsset* wall) {
 		wall->getSprite().getGlobalBounds().position.x
 	);
 
+	//calculates the lenght for horizontal collisions (y-axis movement)
 	horizontalCollision = std::min(
 		actor->getSprite().getGlobalBounds().position.y + actor->getSprite().getGlobalBounds().size.y,
 		wall->getSprite().getGlobalBounds().position.y + wall->getSprite().getGlobalBounds().size.y
@@ -79,7 +82,7 @@ void Map::setCollisionType(Actor* actor, MapAsset* wall) {
 		wall->getSprite().getGlobalBounds().position.y
 	);
 
-
+	//the longer collision is picked (one of them will always tend to 0)
 	if (horizontalCollision > verticalCollision) {
 		wall->setIsHorizontalCollision(true);
 	}
@@ -94,31 +97,35 @@ void Map::handlePlayerCollision() {
 
 	for (int i = 0; i < this->walls.size(); i++) {
 
+		//if there is collision, set the collision type for the wall
 		if (this->playerCollisionInstance.isColliding(this->player->getSprite(), this->walls[i]->getSprite())) {
 			Map::setCollisionType(this->player, this->walls[i]);
 			this->walls[i]->setHasCollision(true);
 			collisionDetected = true;
 		}
 
+		//calculates if the player is above or below the wall
 		if (this->walls[i]->getIsVerticalCollision() == true) {
 			if (this->player->getSprite().getGlobalBounds().position.y > this->walls[i]->getSprite().getGlobalBounds().position.y) {
-				this->player->resetUp();
+				this->player->blockMovementUp();
 			}
 			else if (this->player->getSprite().getGlobalBounds().position.y < this->walls[i]->getSprite().getGlobalBounds().position.y) {
-				this->player->resetDown();
+				this->player->blockMovementDown();
 			}
 		}
 
+		//calculates if the player is left or right of the wall
 		if (this->walls[i]->getIsHorizontalCollision() == true) {
 			if (this->player->getSprite().getGlobalBounds().position.x < this->walls[i]->getSprite().getGlobalBounds().position.x) {
-				this->player->resetRight();
+				this->player->blockMovementRight();
 			}
 			else if (this->player->getSprite().getGlobalBounds().position.x > this->walls[i]->getSprite().getGlobalBounds().position.x) {
-				this->player->resetLeft();
+				this->player->blockMovementLeft();
 			}
 		}
 	}
 		
+	//if no collision is detected, reset the movement flags
 	if (collisionDetected == false) {
 		for (int i = 0; i < this->walls.size(); i++) {
 			this->walls[i]->setIsVerticalCollision(false);
@@ -127,6 +134,15 @@ void Map::handlePlayerCollision() {
 		}
 		this->player->resetMovementFlags();
 	}
+}
+
+void Map::setEnemies() {
+	enemies.clear();
+
+	enemies.push_back(new Enemy("images/bear.png", 100, 10));
+	enemies.push_back(new Enemy("images/bear.png", 100, 10));
+	enemies.push_back(new Enemy("images/bear.png", 100, 10));
+	enemies.push_back(new Enemy("images/bear.png", 100, 10));
 }
 
 Tile* Map::getGrassTiles() {
@@ -143,4 +159,7 @@ std::vector < MapAsset* > Map::getWalls() {
 }
 Player*  Map::getPlayer() {
 	return player;
+}
+std::vector < Enemy* > Map::getEnemies() {
+	return enemies;
 }

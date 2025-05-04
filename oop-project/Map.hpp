@@ -6,6 +6,7 @@
 #include "MapAsset.hpp"
 #include "Actor.hpp"
 #include "Player.hpp"
+#include "Enemy.h"
 #include "Collision.h"
 
 #ifndef MAP_HPP
@@ -17,6 +18,7 @@ class Map {
 	Tile* bearTile;
 	std::vector < MapAsset* > walls;
 	Player* player;
+	std::vector < Enemy* > enemies;
 	Collision playerCollisionInstance;
 
 	//private helper methods
@@ -34,6 +36,7 @@ public:
 	void setBearTile(Tile* bearTile);
 	void setWalls();
 	void setPlayer(Player* player);
+	void setEnemies();
 
 	//getters
 	Tile* getGrassTiles();
@@ -41,6 +44,7 @@ public:
 	Tile* getBearTile();
 	std::vector < MapAsset* > getWalls();
 	Player* getPlayer();
+	std::vector < Enemy* > getEnemies();
 };
 
 #endif

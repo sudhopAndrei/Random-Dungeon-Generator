@@ -11,22 +11,22 @@ Actor::Actor(const std::string& textureName, sf::Vector2f spawnPosition) : textu
 	sprite.setTextureRect(sf::IntRect({ 30, 30 }, { 30, 30 }));
 }
 
-void Actor::resetUp() {
+void Actor::blockMovementUp() {
 	this->canMoveUp = false;
 	this->sprite.move({ 0.f, 0.2f });
 }
 
-void Actor::resetDown() {
+void Actor::blockMovementDown() {
 	this->canMoveDown = false;
 	this->sprite.move({ 0.f, -0.2f });
 }
 
-void Actor::resetLeft() {
+void Actor::blockMovementLeft() {
 	this->canMoveLeft = false;
 	this->sprite.move({ 0.2f, 0.f });
 }
 
-void Actor::resetRight() {
+void Actor::blockMovementRight() {
 	this->canMoveRight = false;
 	this->sprite.move({ -0.2f, 0.f });
 }

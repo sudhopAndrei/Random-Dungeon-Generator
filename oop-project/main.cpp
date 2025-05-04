@@ -21,8 +21,15 @@ int main()
 
         while (const std::optional event = window.pollEvent())
         {
-            if (event->is<sf::Event::Closed>())
+            if (event->is<sf::Event::Closed>()){
+				
+                for (int i = 0; i < gameMap.getEnemies().size(); i++)
+				{
+					delete gameMap.getEnemies()[i];
+				}
+
                 window.close();
+            }
         }
 
         //Drawing the grass tiles
@@ -47,7 +54,12 @@ int main()
         window.draw(gameMap.getPlayer()->getSprite());
         gameMap.handlePlayerCollision();
 		gameMap.getPlayer()->handleMovement();
-       
+
+		//Drawing the enemy
+		for (int i = 0; i < gameMap.getEnemies().size(); i++)
+		{
+			window.draw(gameMap.getEnemies()[i]->getSprite());
+		}
 
         window.display();
     }

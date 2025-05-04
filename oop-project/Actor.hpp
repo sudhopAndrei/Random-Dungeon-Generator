@@ -22,10 +22,10 @@ public:
 	~Actor() {};
 
 	//reset the movement
-	void resetUp();
-	void resetDown();
-	void resetLeft();
-	void resetRight();
+	void blockMovementUp();
+	void blockMovementDown();
+	void blockMovementLeft();
+	void blockMovementRight();
 
 	//reset all flags
 	void resetMovementFlags();
