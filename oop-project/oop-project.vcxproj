@@ -139,21 +139,29 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="GameEntity.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="MapAsset.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Room.cpp" />
     <ClCompile Include="Tile.cpp" />
-    <ClCompile Include="Tile.hpp" />
+    <ClCompile Include="MovingEntities.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="WalkableTile.cpp" />
+    <ClCompile Include="WalkableTile.h" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.hpp" />
+    <ClInclude Include="Actor.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="Door.hpp" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Map.hpp" />
-    <ClInclude Include="MapAsset.hpp" />
-    <ClInclude Include="Player.hpp" />
+    <ClInclude Include="GameEntity.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Room.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="MovingEntities.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

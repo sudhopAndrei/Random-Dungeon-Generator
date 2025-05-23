@@ -5,9 +5,7 @@
 #define COLLISION_H
 
 class Collision {
-	bool isVerticalCollision;
-	bool isHorizontalCollision;
-
+private:
     //private helper methods
 	bool isAbove(sf::Sprite actorSprite, sf::Sprite assetSprite);
 	bool isBelow(sf::Sprite actorSprite, sf::Sprite assetSprite);
@@ -15,17 +13,7 @@ class Collision {
 	bool isRight(sf::Sprite actorSprite, sf::Sprite assetSprite);
 
 public:
-	Collision() {};
-	~Collision() {};
-	bool isColliding(sf::Sprite actorSprite, sf::Sprite assetSprite);
-
-	//getters
-	bool getIsVerticalCollision();
-	bool getIsHorizontalCollision();
-
-	//setters
-	void setIsVerticalCollision(bool isVerticalCollision);
-	void setIsHorizontalCollision(bool isHorizontalCollision);
+	virtual bool isColliding(sf::Sprite actorSprite, sf::Sprite assetSprite) = 0;
 };
 
 #endif COLLISION_H

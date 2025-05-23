@@ -3,7 +3,7 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy(const std::string& texturePath, int hitpoints, int damage) : Actor(texturePath, spawnPosition) {
+Enemy::Enemy(const std::string& texturePath, int hitpoints, int damage) : Actor(texturePath) {
 	this->sprite.setPosition(spawnEnemy());
 	this->hitpoints = hitpoints;
 	this->damage = damage;
@@ -50,6 +50,10 @@ void Enemy::handleMovement() {
 }
 
 //getters
+EntityType Enemy::getEntityType() const {
+	return EntityType::Enemy;
+}
+
 int Enemy::getHitpoints() {
 	return hitpoints;
 }

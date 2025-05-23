@@ -4,33 +4,17 @@
 #include <iostream>
 #include <string>
 
-#include "Door.hpp"
+#include "Door.h"
 
-Door::Door(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& type, const std::string& soundName, bool isOpen) :
-	MapAsset(textureName, x, y, sizeX, sizeY, type), doorSoundBuffer(soundName), doorSound(doorSoundBuffer) {
+Door::Door(const std::string& textureName, float x, float y, int sizeX, int sizeY, const std::string& soundName) :
+	Tile(textureName, x, y, sizeX, sizeY), doorSoundBuffer(soundName), doorSound(doorSoundBuffer) {
 	doorSound.setVolume(50);
-	doorSound.setLooping(true);
-}
-
-void Door::openDoor() {
-	if (isOpen == false) {
-		///if abs(playerPos-DoorPos) < 50px poate apasa key -> se deschide usa
-		doorSound.play();
-		isOpen = true;
-	}
-}
-
-void Door::closeDoor() {
-	if (isOpen == true) {
-		///if abs(playerPos-DoorPos) < 50px poate apasa key -> se inchide usa
-		doorSound.play();
-		isOpen = false;
-	}
+	doorSound.setLooping(false);
 }
 
 ///getters
-sf::SoundBuffer Door::getSoundBuffer() {
-	return doorSoundBuffer;
+EntityType Door::getEntityType() const {
+	return EntityType::Door;
 }
 
 sf::Sound Door::getSound() {

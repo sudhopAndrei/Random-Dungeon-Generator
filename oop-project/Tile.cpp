@@ -1,26 +1,11 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <iostream>
 #include <string>
 
-#include "Tile.hpp"
-#include "MapAsset.hpp"
+#include "Tile.h"
 
-Tile::Tile(const std::string& textureName, float x, float y, int sizeX, int sizeY,const std::string& type,const std::string& soundName) : 
-	MapAsset(textureName, x, y, sizeX, sizeY,type), tileSoundBuffer(soundName), tileSound(tileSoundBuffer) {
-	tileSound.setVolume(50);
-	tileSound.setLooping(true);
+Tile::Tile(const std::string& textureName, float x, float y, int sizeX, int sizeY) : GameEntity(textureName) {
+	sprite.setPosition(sf::Vector2f(x,y));
+	sprite.setTextureRect(sf::IntRect({ 0, 0 }, { sizeX, sizeY }));
 }
 
-Tile::~Tile() {
-	delete this;
-}	
-
-///getters
-sf::SoundBuffer Tile::getSoundBuffer() {
-	return tileSoundBuffer;
-}
-
-sf::Sound Tile::getSound() {
-	return tileSound;
-}

@@ -2,12 +2,12 @@
 #include <iostream>
 #include <string>
 
-#include "Player.hpp"
+#include "Player.h"
 
-Player::Player(const std::string& textureName, sf::Vector2f spawnPosition, bool hasItem) :
-    Actor(textureName, spawnPosition) {
-	this->hasItem = hasItem;
-}
+Player::Player(const std::string& textureName, sf::Vector2f spawnPosition) :
+    Actor(textureName) {
+	this->sprite.setPosition(spawnPosition);
+};
 
 void Player::handleMovement() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && canMoveUp == true)
@@ -31,12 +31,8 @@ void Player::handleMovement() {
     }
 }
 
-//getters
-bool Player::getHasItem() {
-	return hasItem;
+EntityType Player::getEntityType() const {
+    return EntityType::Player;
 }
 
-//setters
-void Player::setHasItem(bool hasItem) {
-	this->hasItem = hasItem;
-}
+
