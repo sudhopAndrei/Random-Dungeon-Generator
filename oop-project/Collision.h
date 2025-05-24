@@ -13,7 +13,7 @@ private:
 	bool isRight(sf::Sprite actorSprite, sf::Sprite assetSprite);
 
 public:
-	virtual bool isColliding(sf::Sprite actorSprite, sf::Sprite assetSprite) = 0;
+	bool isColliding(sf::Sprite actorSprite, sf::Sprite assetSprite);
 };
 
 #endif COLLISION_H

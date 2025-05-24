@@ -4,10 +4,15 @@
 
 #include "GameManager.h"
 
+//singleton instance of GameManager (private constructor)
+GameManager GameManager::managerInstance;
+
+//function called in main.cpp
 void GameManager::startGame() {
 	initializeEntities();
 }
 
+//game initializer
 void GameManager::initializeEntities() {
 	Room::initializeTiles();
 	MovingEntities::initializeActors();
@@ -80,7 +85,7 @@ void GameManager::setCollisionType(GameEntity* actor, GameEntity* wall) {
 void GameManager::handleCollision() {
 
 	for (int i = 0; i < GameEntity::entities.size(); i++) {
-		if (GameEntity::entities[i]->getEntityType() == EntityType::Player) {
+		if (GameEntity::entities[i]->getEntityType() == EntityType::Player || GameEntity::entities[i]->getEntityType() == EntityType::Enemy) {
 
 			bool collisionDetected = false;
 
@@ -88,7 +93,7 @@ void GameManager::handleCollision() {
 				if (GameEntity::entities[j]->getEntityType() == EntityType::Wall) {
 
 					//if there is collision, set the collision type for the wall
-					if (isColliding(GameEntity::entities[i]->getSprite(), GameEntity::entities[j]->getSprite())) {
+					if (managerInstance.isColliding(GameEntity::entities[i]->getSprite(), GameEntity::entities[j]->getSprite())) {
 						GameManager::setCollisionType(GameEntity::entities[i], GameEntity::entities[j]);
 
 						//calculates if the player is above or below the wall

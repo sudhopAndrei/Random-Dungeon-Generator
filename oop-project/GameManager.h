@@ -12,6 +12,7 @@
 class GameManager : public Collision {
 private:
 	static std::chrono::steady_clock::time_point lastTime;
+	static GameManager managerInstance;
 
 	static void setCollisionType(GameEntity* actor, GameEntity* wall);
 	static void initializeEntities();
