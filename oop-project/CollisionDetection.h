@@ -1,10 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#ifndef COLLISION_H
-#define COLLISION_H
+#ifndef COLLISIONDETECTION_H
+#define COLLISIONDETECTION_H
 
-class Collision {
+class CollisionDetection {
 private:
     //private helper methods
 	bool isAbove(sf::Sprite actorSprite, sf::Sprite assetSprite);
@@ -14,7 +14,9 @@ private:
 
 public:
 	bool isColliding(sf::Sprite actorSprite, sf::Sprite assetSprite);
+
+	bool isHorizontalCollision(sf::Sprite actorSprite, sf::Sprite assetSprite);
 };
 
-#endif COLLISION_H
+#endif 
 

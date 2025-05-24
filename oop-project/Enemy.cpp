@@ -34,17 +34,17 @@ void Enemy::changeDirection() {
 
 //handle the movement of the enemy
 void Enemy::handleMovement() {
-	if (this->verticalDirection > 0 && canMoveDown == true) {
+	if (this->verticalDirection > 0) {
 		this->sprite.move({ 0.f, 0.03f });
 	}
-	else if (this->verticalDirection < 0 && canMoveUp == true) {
+	else if (this->verticalDirection < 0) {
 		this->sprite.move({ 0.f, -0.03f });
 	}
 
-	if (this->horizontalDirection > 0 && canMoveRight == true) {
+	if (this->horizontalDirection > 0) {
 		this->sprite.move({ 0.03f, 0.f });
 	}
-	else if (this->horizontalDirection < 0 && canMoveLeft == true) {
+	else if (this->horizontalDirection < 0) {
 		this->sprite.move({ -0.03f, 0.f });
 	}
 }

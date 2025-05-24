@@ -17,6 +17,7 @@ public:
 	~Room() {};
 
 	static void initializeTiles();
+	void updateRooms();
 };
 
 #endif

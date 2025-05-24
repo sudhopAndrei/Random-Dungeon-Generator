@@ -10,22 +10,22 @@ Player::Player(const std::string& textureName, sf::Vector2f spawnPosition) :
 };
 
 void Player::handleMovement() {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && canMoveUp == true)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
     {
         this->sprite.move({ 0.f, -0.2f });
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) && canMoveLeft == true)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
     {
         this->sprite.move({ -0.2f, 0.f });
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && canMoveDown == true)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
     {
         this->sprite.move({ 0.f, 0.2f });
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) && canMoveRight == true)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
     {
         this->sprite.move({ 0.2f, 0.f });
     }

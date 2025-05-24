@@ -9,12 +9,6 @@
 #define ACTOR_HPP
 
 class Actor : public GameEntity {
-protected:
-	bool canMoveUp;
-	bool canMoveLeft;
-	bool canMoveRight;
-	bool canMoveDown;
-	
 public:
 	Actor(const std::string& texturePath);
 	~Actor() {};
@@ -28,16 +22,8 @@ public:
 	void blockMovementLeft() override;
 	void blockMovementRight() override;
 
-	//reset all flags
-	void resetMovementFlags() override;
-
 	//getters
 	virtual EntityType getEntityType() const = 0;
-
-	bool getCanMoveUp();
-	bool getCanMoveLeft();
-	bool getCanMoveRight();
-	bool getCanMoveDown();
 };
 
 #endif
