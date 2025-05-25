@@ -158,6 +158,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="MovementBlocker.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="MovingEntities.h" />

@@ -57,7 +57,6 @@ bool CollisionDetection::isHorizontalCollision(sf::Sprite actorSprite, sf::Sprit
 		return true;
 	}
 
-	if (horizontalCollision < verticalCollision) {
-		return false;
-	}
+	return false;
 }
+

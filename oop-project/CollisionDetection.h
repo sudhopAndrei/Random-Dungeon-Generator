@@ -15,7 +15,7 @@ private:
 public:
 	bool isColliding(sf::Sprite actorSprite, sf::Sprite assetSprite);
 
-	bool isHorizontalCollision(sf::Sprite actorSprite, sf::Sprite assetSprite);
+	static bool isHorizontalCollision(sf::Sprite actorSprite, sf::Sprite assetSprite);
 };
 
 #endif 

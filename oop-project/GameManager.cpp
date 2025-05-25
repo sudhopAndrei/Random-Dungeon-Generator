@@ -45,12 +45,13 @@ void GameManager::handleGame() {
     }
 
 	//handle the collision between entities
-	handleCollision();
+	handleCollisions();
 }
 
 //handle the actor collision with the collidable instances
-void GameManager::handleCollision() {
+void GameManager::handleCollisions() {
 
+	//actor-wall collision handling -> calls actor handling method
 	for (int i = 0; i < GameEntity::entities.size(); i++) {
 		if (GameEntity::entities[i]->getEntityType() == EntityType::Player || GameEntity::entities[i]->getEntityType() == EntityType::Enemy) {
 
@@ -59,26 +60,7 @@ void GameManager::handleCollision() {
 
 					//if there is collision, set the collision type for the wall
 					if (managerInstance.isColliding(GameEntity::entities[i]->getSprite(), GameEntity::entities[j]->getSprite())) {
-
-						//calculates if the player is above or below the wall
-						if (managerInstance.isHorizontalCollision(GameEntity::entities[i]->getSprite(), GameEntity::entities[j]->getSprite()) == false) {
-							if (GameEntity::entities[i]->getSprite().getGlobalBounds().position.y > GameEntity::entities[j]->getSprite().getGlobalBounds().position.y) {
-								GameEntity::entities[i]->blockMovementUp();
-							}
-							else if (GameEntity::entities[i]->getSprite().getGlobalBounds().position.y < GameEntity::entities[j]->getSprite().getGlobalBounds().position.y) {
-								GameEntity::entities[i]->blockMovementDown();
-							}
-						}
-
-						//calculates if the player is left or right of the wall
-						if (managerInstance.isHorizontalCollision(GameEntity::entities[i]->getSprite(), GameEntity::entities[j]->getSprite()) == true) {
-							if (GameEntity::entities[i]->getSprite().getGlobalBounds().position.x < GameEntity::entities[j]->getSprite().getGlobalBounds().position.x) {
-								GameEntity::entities[i]->blockMovementRight();
-							}
-							else if (GameEntity::entities[i]->getSprite().getGlobalBounds().position.x > GameEntity::entities[j]->getSprite().getGlobalBounds().position.x) {
-								GameEntity::entities[i]->blockMovementLeft();
-							}
-						}
+						GameEntity::entities[i]->handleCollision(GameEntity::entities[i], GameEntity::entities[j]);
 					}
 				}
 			}
