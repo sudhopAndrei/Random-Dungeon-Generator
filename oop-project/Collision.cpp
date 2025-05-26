@@ -30,17 +30,56 @@ bool Collision::isColliding(sf::Sprite actorSprite, sf::Sprite assetSprite) {
 		!Collision::isRight(actorSprite, assetSprite));
 }
 
-bool Collision::getIsVerticalCollision() {
-	return isVerticalCollision;
-}
-bool Collision::getIsHorizontalCollision() {
-	return isHorizontalCollision;
+bool Collision::isHorizontalCollision(sf::Sprite actorSprite, sf::Sprite assetSprite) {
+	float horizontalCollision;
+	float verticalCollision;
+
+	//calculates the lenght for vertical collisions (x-axis movement)
+	verticalCollision = std::min(
+		actorSprite.getGlobalBounds().position.x + actorSprite.getGlobalBounds().size.x,
+		assetSprite.getGlobalBounds().position.x + assetSprite.getGlobalBounds().size.x
+	) - std::max(
+		actorSprite.getGlobalBounds().position.x,
+		assetSprite.getGlobalBounds().position.x
+	);
+
+	//calculates the lenght for horizontal collisions (y-axis movement)
+	horizontalCollision = std::min(
+		actorSprite.getGlobalBounds().position.y + actorSprite.getGlobalBounds().size.y,
+		assetSprite.getGlobalBounds().position.y + assetSprite.getGlobalBounds().size.y
+	) - std::max(
+		actorSprite.getGlobalBounds().position.y,
+		assetSprite.getGlobalBounds().position.y
+	);
+
+	//the longer collision is picked (one of them will always tend to 0)
+	if (horizontalCollision > verticalCollision) {
+		return true;
+	}
+
+	return false;
 }
 
-//setters
-void Collision::setIsVerticalCollision(bool isVerticalCollision) {
-	this->isVerticalCollision = isVerticalCollision;
+
+void Collision::actorCollision(GameEntity* entity1, GameEntity* entity2) {
+	//calculates if the player is above or below the wall
+	if (Collision::isHorizontalCollision(entity1->getSprite(), entity2->getSprite()) == false) {
+		if (entity1->getSprite().getGlobalBounds().position.y > entity2->getSprite().getGlobalBounds().position.y) {
+			entity1->blockMovementUp();
+		}
+		else if (entity1->getSprite().getGlobalBounds().position.y < entity2->getSprite().getGlobalBounds().position.y) {
+			entity1->blockMovementDown();
+		}
+	}
+
+	//calculates if the player is left or right of the wall
+	if (Collision::isHorizontalCollision(entity1->getSprite(), entity2->getSprite()) == true) {
+		if (entity1->getSprite().getGlobalBounds().position.x < entity2->getSprite().getGlobalBounds().position.x) {
+			entity1->blockMovementRight();
+		}
+		else if (entity1->getSprite().getGlobalBounds().position.x > entity2->getSprite().getGlobalBounds().position.x) {
+			entity1->blockMovementLeft();
+		}
+	}
 }
-void Collision::setIsHorizontalCollision(bool isHorizontalCollision) {
-	this->isHorizontalCollision = isHorizontalCollision;
-}
+

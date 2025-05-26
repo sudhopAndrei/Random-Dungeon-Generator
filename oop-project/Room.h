@@ -1,0 +1,44 @@
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <vector>
+
+#include "Wall.h"
+#include "WalkableTile.h"
+#include "Door.h"
+
+#ifndef ROOM_H
+#define ROOM_H
+
+class Room {
+	std::vector <Room*> doors = { nullptr, nullptr, nullptr, nullptr };
+
+	bool hasLeftDoor;
+	bool hasUpDoor;
+	bool hasRightDoor;
+	bool hasDownDoor;
+
+public:
+	std::vector <GameEntity*> roomEntities;
+
+	static std::vector <Room*> rooms; //holds all the rooms in the game
+
+	Room();
+	~Room() {};
+
+	static void initializeRoom();
+	static void linkRooms();
+	
+	//setters
+	void setHasLeftDoor(bool hasLeftDoor);
+	void setHasUpDoor(bool hasUpDoor);
+	void setHasRightDoor(bool hasRightDoor);
+	void setHasDownDoor(bool hasDownDoor);
+
+	//getters
+	bool getHasLeftDoor();
+	bool getHasUpDoor();
+	bool getHasRightDoor();
+	bool getHasDownDoor();
+};
+
+#endif

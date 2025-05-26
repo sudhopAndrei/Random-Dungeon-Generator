@@ -4,29 +4,29 @@
 #ifndef COLLISION_H
 #define COLLISION_H
 
+#include "GameEntity.h";
+
 class Collision {
-	bool isVerticalCollision;
-	bool isHorizontalCollision;
-
+private:
     //private helper methods
-	bool isAbove(sf::Sprite actorSprite, sf::Sprite assetSprite);
-	bool isBelow(sf::Sprite actorSprite, sf::Sprite assetSprite);
-	bool isLeft(sf::Sprite actorSprite, sf::Sprite assetSprite);
-	bool isRight(sf::Sprite actorSprite, sf::Sprite assetSprite);
+	static bool isAbove(sf::Sprite actorSprite, sf::Sprite assetSprite);
+	static bool isBelow(sf::Sprite actorSprite, sf::Sprite assetSprite);
+	static bool isLeft(sf::Sprite actorSprite, sf::Sprite assetSprite);
+	static bool isRight(sf::Sprite actorSprite, sf::Sprite assetSprite);
 
-public:
+protected:
 	Collision() {};
 	~Collision() {};
-	bool isColliding(sf::Sprite actorSprite, sf::Sprite assetSprite);
 
-	//getters
-	bool getIsVerticalCollision();
-	bool getIsHorizontalCollision();
+public:
+	static bool isColliding(sf::Sprite actorSprite, sf::Sprite assetSprite);
 
-	//setters
-	void setIsVerticalCollision(bool isVerticalCollision);
-	void setIsHorizontalCollision(bool isHorizontalCollision);
+	static bool isHorizontalCollision(sf::Sprite actorSprite, sf::Sprite assetSprite);
+
+	//collision cases
+	static void actorCollision(GameEntity* entity1, GameEntity* entity2);
+	//static void doorCollision(GameEntity* entity1, GameEntity* entity2);
 };
 
-#endif COLLISION_H
+#endif 
 

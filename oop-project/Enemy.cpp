@@ -3,7 +3,7 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy(const std::string& texturePath, int hitpoints, int damage) : Actor(texturePath, spawnPosition) {
+Enemy::Enemy(const std::string& texturePath, int hitpoints, int damage) : Actor(texturePath) {
 	this->sprite.setPosition(spawnEnemy());
 	this->hitpoints = hitpoints;
 	this->damage = damage;
@@ -19,10 +19,10 @@ Enemy::Enemy(const std::string& texturePath, int hitpoints, int damage) : Actor(
 	changeDirection();
 }
 
-//randomizer for spawn position
+//randomizer for spawn position (ensures that the enemy spawns within the game area)
 sf::Vector2f Enemy::spawnEnemy() {
-	float x = (std::rand() % 1920);
-	float y = (std::rand() % 1080);
+	float x = float (std::rand() % 1680 + 120);
+	float y = float (std::rand() % 840 + 120);
 	return sf::Vector2f(x, y);
 }
 
@@ -34,22 +34,26 @@ void Enemy::changeDirection() {
 
 //handle the movement of the enemy
 void Enemy::handleMovement() {
-	if (this->verticalDirection > 0 && canMoveDown == true) {
+	if (this->verticalDirection > 0) {
 		this->sprite.move({ 0.f, 0.03f });
 	}
-	else if (this->verticalDirection < 0 && canMoveUp == true) {
+	else if (this->verticalDirection < 0) {
 		this->sprite.move({ 0.f, -0.03f });
 	}
 
-	if (this->horizontalDirection > 0 && canMoveRight == true) {
+	if (this->horizontalDirection > 0) {
 		this->sprite.move({ 0.03f, 0.f });
 	}
-	else if (this->horizontalDirection < 0 && canMoveLeft == true) {
+	else if (this->horizontalDirection < 0) {
 		this->sprite.move({ -0.03f, 0.f });
 	}
 }
 
 //getters
+EntityType Enemy::getEntityType() const {
+	return EntityType::Enemy;
+}
+
 int Enemy::getHitpoints() {
 	return hitpoints;
 }
