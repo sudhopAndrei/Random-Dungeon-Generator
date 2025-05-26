@@ -1,26 +1,36 @@
 #include <SFML/Graphics.hpp>
 #include <algorithm>
 #include <chrono>
+#include <time.h>
 
 #include "GameManager.h"
 
 //singleton instance of GameManager (private constructor)
 GameManager GameManager::managerInstance;
 
+Room* GameManager::activeRoom = nullptr;
+
 //function called in main.cpp
 void GameManager::startGame() {
 	initializeEntities();
+
+	for (int i = 0; i < Room::rooms.size(); i++) {
+		GameManager::activeRoom = Room::rooms[0]; //set the active room to the first room
+		break;
+	}
 }
 
 //game initializer
 void GameManager::initializeEntities() {
+
+	srand(time(NULL));
 
 	//random number of rooms between 10 and 20
 	for (int i = 0; i < rand() % 10 + 10; i++) {
 		Room::initializeRoom();
 	}
 
-	//Room::generateRooms();
+	Room::linkRooms();
 
 	MovingEntities::initializeActors();
 }
@@ -67,10 +77,15 @@ void GameManager::callCollisions() {
 
 					//if there is collision, set the collision type for the wall
 					if (managerInstance.isColliding(GameEntity::entities[i]->getSprite(), GameEntity::entities[j]->getSprite())) {
-						GameEntity::entities[i]->handleCollision(GameEntity::entities[i], GameEntity::entities[j]);
+						Collision::actorCollision(GameEntity::entities[i], GameEntity::entities[j]);
 					}
 				}
 			}
 		}
 	}
+}
+
+//getter
+Room* GameManager::getActiveRoom() {
+	return GameManager::activeRoom;
 }

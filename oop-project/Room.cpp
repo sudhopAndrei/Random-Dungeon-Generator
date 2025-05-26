@@ -8,9 +8,6 @@
 //initialize the static vector of rooms
 std::vector<Room*> Room::rooms;
 
-//initialize the static counter for used rooms
-int Room::usedRoomsCounter = 0;
-
 Room::Room() : hasLeftDoor(false), hasUpDoor(false), hasRightDoor(false), hasDownDoor(false) {}
 
 //initialize the grass tiles
@@ -32,41 +29,108 @@ void Room::initializeRoom() {
 	Room::rooms.push_back(currentRoom);
 }
 
-void Room::generateDoors() {
+void Room::linkRooms() {
+	int usedRoomsCounter = 1;
+
 	for (int i = 0; i < Room::rooms.size(); i++) {
 
 		//the initial room has all 4 doors
 		if (i == 0) {
-			Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 0.f, 480.f, 120, 120, "sounds/doorOpen.wav"));
+			Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 0.f, 480.f, 120, 120, "sounds/floorTileWalk.wav"));
+			
+			Room::rooms[i]->doors[0] = Room::rooms[i + 1];
+			Room::rooms[i + 1]->doors[2] = Room::rooms[i];
+			Room::rooms[i + 1]->setHasRightDoor(true);
+
 			Room::rooms[i]->setHasLeftDoor(true);
 			
-			Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 900.f, 0.f, 120, 120, "sounds/doorOpen.wav"));
+			usedRoomsCounter++;
+			
+			///
+
+			Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 900.f, 0.f, 120, 120, "sounds/floorTileWalk.wav"));
+			
+			Room::rooms[i]->doors[1] = Room::rooms[i + 2];
+			Room::rooms[i + 2]->doors[3] = Room::rooms[i];
+			Room::rooms[i + 2]->setHasDownDoor(true);
+
 			Room::rooms[i]->setHasUpDoor(true);
+
+			usedRoomsCounter++;
 			
-			Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 1800.f, 480.f, 120, 120, "sounds/doorOpen.wav"));
+			///
+
+			Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 1800.f, 480.f, 120, 120, "sounds/floorTileWalk.wav"));
+
+			Room::rooms[i]->doors[2] = Room::rooms[i + 3];
+			Room::rooms[i + 3]->doors[0] = Room::rooms[i];
+			Room::rooms[i + 3]->setHasLeftDoor(true);
+
 			Room::rooms[i]->setHasRightDoor(true);
+
+			usedRoomsCounter++;
 			
-			Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 900.f, 960.f, 120, 120, "sounds/doorOpen.wav"));
+			///
+
+			Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 900.f, 960.f, 120, 120, "sounds/floorTileWalk.wav"));
+
+			Room::rooms[i]->doors[3] = Room::rooms[i + 4];
+			Room::rooms[i + 4]->doors[1] = Room::rooms[i];
+			Room::rooms[i + 4]->setHasUpDoor(true);
+
 			Room::rooms[i]->setHasDownDoor(true);
+
+			usedRoomsCounter++;
 		}
 
 		//for every door in the room there is a 50% it will spawn
 		else {
-			if (rand() % 100 % 2 == 0 && Room::rooms[i]->getHasLeftDoor() == false) {
-				Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 0.f, 480.f, 120, 120, "sounds/doorOpen.wav"));
+			if (rand() % 100 % 2 == 0 && Room::rooms[i]->getHasLeftDoor() == false && usedRoomsCounter < Room::rooms.size()) {
+				Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 0.f, 480.f, 120, 120, "sounds/floorTileWalk.wav"));
+
+				Room::rooms[i]->doors[0] = Room::rooms[i + 1];
+				Room::rooms[i + 1]->doors[2] = Room::rooms[i];
+				Room::rooms[i + 1]->setHasRightDoor(true);
+
 				Room::rooms[i]->setHasLeftDoor(true);
+
+				usedRoomsCounter++;
 			}
-			if (rand() % 100 % 2 == 0 && Room::rooms[i]->getHasUpDoor() == false) {
-				Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 900.f, 0.f, 120, 120, "sounds/doorOpen.wav"));
+
+			if (rand() % 100 % 2 == 0 && Room::rooms[i]->getHasUpDoor() == false && usedRoomsCounter < Room::rooms.size()) {
+				Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 900.f, 0.f, 120, 120, "sounds/floorTileWalk.wav"));
+
+				Room::rooms[i]->doors[1] = Room::rooms[i + 2];
+				Room::rooms[i + 2]->doors[3] = Room::rooms[i];
+				Room::rooms[i + 2]->setHasDownDoor(true);
+
 				Room::rooms[i]->setHasUpDoor(true);
+
+				usedRoomsCounter++;
 			}
-			if (rand() % 100 % 2 == 0 && Room::rooms[i]->getHasRightDoor() == false) {
-				Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 1800.f, 480.f, 120, 120, "sounds/doorOpen.wav"));
+
+			if (rand() % 100 % 2 == 0 && Room::rooms[i]->getHasRightDoor() == false && usedRoomsCounter < Room::rooms.size()) {
+				Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 1800.f, 480.f, 120, 120, "sounds/floorTileWalk.wav"));
+
+				Room::rooms[i]->doors[2] = Room::rooms[i + 3];
+				Room::rooms[i + 3]->doors[0] = Room::rooms[i];
+				Room::rooms[i + 3]->setHasLeftDoor(true);
+
 				Room::rooms[i]->setHasRightDoor(true);
+
+				usedRoomsCounter++;
 			}
-			if (rand() % 100 % 2 == 0 && Room::rooms[i]->getHasDownDoor() == false) {
-				Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 900.f, 960.f, 120, 120, "sounds/doorOpen.wav"));
+
+			if (rand() % 100 % 2 == 0 && Room::rooms[i]->getHasDownDoor() == false && usedRoomsCounter < Room::rooms.size()) {
+				Room::rooms[i]->roomEntities.push_back(new Door("images/grassTile.png", 900.f, 960.f, 120, 120, "sounds/floorTileWalk.wav"));
+
+				Room::rooms[i]->doors[3] = Room::rooms[i + 4];
+				Room::rooms[i + 4]->doors[1] = Room::rooms[i];
+				Room::rooms[i + 4]->setHasUpDoor(true);
+
 				Room::rooms[i]->setHasDownDoor(true);
+
+				usedRoomsCounter++;
 			}
 		}
 	}

@@ -2,17 +2,18 @@
 #include <iostream>
 #include <vector>
 
-#include "CollisionDetection.h"
+#include "Collision.h"
 #include "MovingEntities.h"
 #include "Room.h"
 
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
 
-class GameManager : public CollisionDetection {
+class GameManager : public Collision {
 private:
 	static std::chrono::steady_clock::time_point lastTime;
 	static GameManager managerInstance;
+	static Room* activeRoom; //the room in which the player is currently in
 
 	static void initializeEntities();
 
@@ -23,6 +24,8 @@ public:
 	static void startGame();
 	static void handleGame();
 	static void callCollisions();
+
+	static Room* getActiveRoom();
 };
 
 #endif

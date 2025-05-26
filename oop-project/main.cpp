@@ -25,10 +25,9 @@ int main()
         }
 
         //loop that draws every game entity
-		for (int i = 0; i < GameEntity::entities.size(); i++)
+		for (int i = 0; i < GameManager::getActiveRoom()->roomEntities.size(); i++)
 		{
-			window.draw(GameEntity::entities[i]->getSprite());
-            //window.draw(GameEntity::activeRoom->GetEntities[i]->getSprite());
+            window.draw(GameManager::getActiveRoom()->roomEntities[i]->getSprite());
 		}
 
         //game handler (collision, movement, etc.)

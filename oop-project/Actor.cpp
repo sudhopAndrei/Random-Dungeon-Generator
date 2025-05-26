@@ -23,25 +23,3 @@ void Actor::blockMovementLeft() {
 void Actor::blockMovementRight() {
 	this->sprite.move({ -0.5f, 0.f });
 }
-
-void Actor::handleCollision(GameEntity* managedEntity, GameEntity* collidedEntity) {
-	//calculates if the player is above or below the wall
-	if (CollisionDetection::isHorizontalCollision(managedEntity->getSprite(),collidedEntity->getSprite()) == false) {
-		if (this->getSprite().getGlobalBounds().position.y > collidedEntity->getSprite().getGlobalBounds().position.y) {
-			managedEntity->blockMovementUp();
-		}
-		else if (this->getSprite().getGlobalBounds().position.y < collidedEntity->getSprite().getGlobalBounds().position.y) {
-			managedEntity->blockMovementDown();
-		}
-	}
-
-	//calculates if the player is left or right of the wall
-	if (CollisionDetection::isHorizontalCollision(managedEntity->getSprite(), collidedEntity->getSprite()) == true) {
-		if (managedEntity->getSprite().getGlobalBounds().position.x < collidedEntity->getSprite().getGlobalBounds().position.x) {
-			managedEntity->blockMovementRight();
-		}
-		else if (managedEntity->getSprite().getGlobalBounds().position.x > collidedEntity->getSprite().getGlobalBounds().position.x) {
-			managedEntity->blockMovementLeft();
-		}
-	}
-}

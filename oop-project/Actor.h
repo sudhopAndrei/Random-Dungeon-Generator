@@ -18,8 +18,6 @@ public:
 	void handleMovement() override = 0; //overrides the virtual function from Entity class into a pure virtual function
 	void changeDirection() override {}; //changes the direction of the entity
 
-	virtual void handleCollision(GameEntity* managedEntity, GameEntity* collidedEntity = nullptr) override; //pure virtual function for collision handling
-
 	//block the movement
 	void blockMovementUp() override;
 	void blockMovementDown() override;

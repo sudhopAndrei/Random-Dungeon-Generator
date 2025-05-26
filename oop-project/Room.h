@@ -10,7 +10,7 @@
 #define ROOM_H
 
 class Room {
-	std::vector <GameEntity*> roomEntities;
+	std::vector <Room*> doors = { nullptr, nullptr, nullptr, nullptr };
 
 	bool hasLeftDoor;
 	bool hasUpDoor;
@@ -18,17 +18,15 @@ class Room {
 	bool hasDownDoor;
 
 public:
-	static int usedRoomsCounter;
-	static std::vector <Room*> rooms; //holds all the rooms in the game
+	std::vector <GameEntity*> roomEntities;
 
-	//std::vector<Room*> doors = { nullptr, nullptr, Room*, Room*}
+	static std::vector <Room*> rooms; //holds all the rooms in the game
 
 	Room();
 	~Room() {};
 
 	static void initializeRoom();
-	static void generateDoors();
-	//static void generateRooms();
+	static void linkRooms();
 	
 	//setters
 	void setHasLeftDoor(bool hasLeftDoor);

@@ -136,7 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="CollisionDetection.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameEntity.cpp" />
@@ -152,8 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
-    <ClInclude Include="CollisionDetection.h" />
-    <ClInclude Include="CollisionHandler.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameEntity.h" />
