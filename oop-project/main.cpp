@@ -28,6 +28,7 @@ int main()
 		for (int i = 0; i < GameEntity::entities.size(); i++)
 		{
 			window.draw(GameEntity::entities[i]->getSprite());
+            //window.draw(GameEntity::activeRoom->GetEntities[i]->getSprite());
 		}
 
         //game handler (collision, movement, etc.)

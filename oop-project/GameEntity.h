@@ -29,7 +29,7 @@ public:
 	virtual void handleMovement() {}; //implements movement into a virtual class
 	virtual void changeDirection() {}; //changes the direction of the entity into a virtual class
 
-	virtual void handleCollision(GameEntity* managedEntity, GameEntity* collidedEntity = nullptr) override = 0; //pure virtual function for collision handling
+	void handleCollision(GameEntity* managedEntity, GameEntity* collidedEntity = nullptr) override = 0; //pure virtual function for collision handling
 
 	void blockMovementUp() override {};
 	void blockMovementDown() override {};

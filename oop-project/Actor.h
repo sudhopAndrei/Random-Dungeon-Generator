@@ -15,8 +15,8 @@ public:
 	Actor(const std::string& texturePath);
 	~Actor() {};
 
-	virtual void handleMovement() override = 0; //overrides the virtual function from Entity class into a pure virtual function
-	virtual void changeDirection() override {}; //changes the direction of the entity
+	void handleMovement() override = 0; //overrides the virtual function from Entity class into a pure virtual function
+	void changeDirection() override {}; //changes the direction of the entity
 
 	virtual void handleCollision(GameEntity* managedEntity, GameEntity* collidedEntity = nullptr) override; //pure virtual function for collision handling
 
@@ -27,7 +27,7 @@ public:
 	void blockMovementRight() override;
 
 	//getters
-	virtual EntityType getEntityType() const = 0;
+	EntityType getEntityType() const = 0;
 };
 
 #endif

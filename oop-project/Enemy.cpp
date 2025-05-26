@@ -19,10 +19,10 @@ Enemy::Enemy(const std::string& texturePath, int hitpoints, int damage) : Actor(
 	changeDirection();
 }
 
-//randomizer for spawn position
+//randomizer for spawn position (ensures that the enemy spawns within the game area)
 sf::Vector2f Enemy::spawnEnemy() {
-	float x = float (std::rand() % 1920);
-	float y = float (std::rand() % 1080);
+	float x = float (std::rand() % 1680 + 120);
+	float y = float (std::rand() % 840 + 120);
 	return sf::Vector2f(x, y);
 }
 

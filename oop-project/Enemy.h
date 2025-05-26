@@ -21,7 +21,7 @@ public:
 	~Enemy() {};
 
 	sf::Vector2f spawnEnemy();
-	void changeDirection();
+	void changeDirection() override;
 	void handleMovement() override; //overrides the movement function
 
 	//getters

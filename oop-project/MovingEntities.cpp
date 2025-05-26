@@ -5,7 +5,7 @@
 
 void MovingEntities::initializeActors() {
 	//player
-	GameEntity::entities.push_back(new Player("images/bear.png", sf::Vector2f(30, 30)));
+	GameEntity::entities.push_back(new Player("images/bear.png", sf::Vector2f(960, 540)));
 
 	//enemies
 	GameEntity::entities.push_back(new Enemy("images/bear.png", 100, 10));

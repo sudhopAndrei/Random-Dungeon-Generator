@@ -22,7 +22,7 @@ private:
 public:
 	static void startGame();
 	static void handleGame();
-	static void handleCollisions();
+	static void callCollisions();
 };
 
 #endif

@@ -14,7 +14,14 @@ void GameManager::startGame() {
 
 //game initializer
 void GameManager::initializeEntities() {
-	Room::initializeTiles();
+
+	//random number of rooms between 10 and 20
+	for (int i = 0; i < rand() % 10 + 10; i++) {
+		Room::initializeRoom();
+	}
+
+	//Room::generateRooms();
+
 	MovingEntities::initializeActors();
 }
 
@@ -30,7 +37,7 @@ void GameManager::handleGame() {
 		}
 	}
 
-	//Change the direction of the enemies every 3 seconds
+	//change the direction of the enemies every 3 seconds
     auto currentTime = std::chrono::steady_clock::now();
     const std::chrono::seconds changeInterval(3);
 
@@ -45,11 +52,11 @@ void GameManager::handleGame() {
     }
 
 	//handle the collision between entities
-	handleCollisions();
+	callCollisions();
 }
 
 //handle the actor collision with the collidable instances
-void GameManager::handleCollisions() {
+void GameManager::callCollisions() {
 
 	//actor-wall collision handling -> calls actor handling method
 	for (int i = 0; i < GameEntity::entities.size(); i++) {
