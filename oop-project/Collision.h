@@ -22,10 +22,6 @@ public:
 	static bool isColliding(sf::Sprite actorSprite, sf::Sprite assetSprite);
 
 	static bool isHorizontalCollision(sf::Sprite actorSprite, sf::Sprite assetSprite);
-
-	//collision cases
-	static void actorCollision(GameEntity* entity1, GameEntity* entity2);
-	//static void doorCollision(GameEntity* entity1, GameEntity* entity2);
 };
 
 #endif 

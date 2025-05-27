@@ -59,27 +59,3 @@ bool Collision::isHorizontalCollision(sf::Sprite actorSprite, sf::Sprite assetSp
 
 	return false;
 }
-
-
-void Collision::actorCollision(GameEntity* entity1, GameEntity* entity2) {
-	//calculates if the player is above or below the wall
-	if (Collision::isHorizontalCollision(entity1->getSprite(), entity2->getSprite()) == false) {
-		if (entity1->getSprite().getGlobalBounds().position.y > entity2->getSprite().getGlobalBounds().position.y) {
-			entity1->blockMovementUp();
-		}
-		else if (entity1->getSprite().getGlobalBounds().position.y < entity2->getSprite().getGlobalBounds().position.y) {
-			entity1->blockMovementDown();
-		}
-	}
-
-	//calculates if the player is left or right of the wall
-	if (Collision::isHorizontalCollision(entity1->getSprite(), entity2->getSprite()) == true) {
-		if (entity1->getSprite().getGlobalBounds().position.x < entity2->getSprite().getGlobalBounds().position.x) {
-			entity1->blockMovementRight();
-		}
-		else if (entity1->getSprite().getGlobalBounds().position.x > entity2->getSprite().getGlobalBounds().position.x) {
-			entity1->blockMovementLeft();
-		}
-	}
-}
-

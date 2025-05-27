@@ -11,11 +11,13 @@
 
 class MovingEntities {
 private:
+	//factory class, private constructor
 	MovingEntities();
 	~MovingEntities() {}
 
 public:
-	static void initializeActors();
+	static Player* initializePlayer();
+	static Enemy* initializeEnemy();
 };
 
 #endif

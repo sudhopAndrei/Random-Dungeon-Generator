@@ -10,7 +10,13 @@
 #define ROOM_H
 
 class Room {
-	std::vector <Room*> doors = { nullptr, nullptr, nullptr, nullptr };
+private:
+	struct {
+		Room* leftDoor = nullptr;
+		Room* upDoor = nullptr;
+		Room* rightDoor = nullptr;
+		Room* downDoor = nullptr;
+	} doors; 
 
 	bool hasLeftDoor;
 	bool hasUpDoor;
@@ -39,6 +45,11 @@ public:
 	bool getHasUpDoor();
 	bool getHasRightDoor();
 	bool getHasDownDoor();
+
+	Room* getLeftDoor();
+	Room* getUpDoor();
+	Room* getRightDoor();
+	Room* getDownDoor();
 };
 
 #endif

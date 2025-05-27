@@ -23,7 +23,7 @@ private:
 public:
 	static void startGame();
 	static void handleGame();
-	static void callCollisions();
+	static void collisionManager();
 
 	static Room* getActiveRoom();
 };
