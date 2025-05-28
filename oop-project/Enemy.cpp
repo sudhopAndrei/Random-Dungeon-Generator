@@ -5,6 +5,7 @@
 
 Enemy::Enemy(const std::string& texturePath, int hitpoints, int damage) : Actor(texturePath) {
 	this->sprite.setPosition(spawnEnemy());
+	this->setSpeed(150.f);
 	this->hitpoints = hitpoints;
 	this->damage = damage;
 
@@ -33,19 +34,20 @@ void Enemy::changeDirection() {
 }
 
 //handle the movement of the enemy
-void Enemy::handleMovement() {
+void Enemy::handleMovement(float deltaTime) {
+
 	if (this->verticalDirection > 0) {
-		this->sprite.move({ 0.f, 0.03f });
+		this->sprite.move({ 0.f, this->getSpeed() * deltaTime });
 	}
 	else if (this->verticalDirection < 0) {
-		this->sprite.move({ 0.f, -0.03f });
+		this->sprite.move({ 0.f, -this->getSpeed() * deltaTime });
 	}
 
 	if (this->horizontalDirection > 0) {
-		this->sprite.move({ 0.03f, 0.f });
+		this->sprite.move({ this->getSpeed() * deltaTime, 0.f });
 	}
 	else if (this->horizontalDirection < 0) {
-		this->sprite.move({ -0.03f, 0.f });
+		this->sprite.move({ -this->getSpeed() * deltaTime, 0.f });
 	}
 }
 

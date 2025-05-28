@@ -12,3 +12,7 @@ std::vector <GameEntity*> GameEntity::entities;
 sf::Sprite GameEntity::getSprite() {
 	return sprite;
 }
+
+sf::Sprite& GameEntity::getSpriteRef() {
+	return sprite;
+}

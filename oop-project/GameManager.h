@@ -11,6 +11,8 @@
 
 class GameManager : public Collision {
 private:
+	static sf::Clock clock;
+
 	static std::chrono::steady_clock::time_point lastTime;
 	static GameManager managerInstance;
 	static Room* activeRoom; //the room in which the player is currently in

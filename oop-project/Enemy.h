@@ -23,7 +23,7 @@ public:
 
 	sf::Vector2f spawnEnemy();
 	void changeDirection() override;
-	void handleMovement() override; //overrides the movement function
+	void handleMovement(float deltaTime) override; //overrides the movement function
 
 	//getters
 	EntityType getEntityType() const override;  

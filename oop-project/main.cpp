@@ -7,8 +7,8 @@
 int main()
 {
     //Window and cursor settings
-    sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML",sf::Style::Default, sf::State::Windowed);
-    window.setMouseCursorVisible(true); 
+    sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML",sf::Style::Default, sf::State::Fullscreen);
+    window.setMouseCursorVisible(false); 
 
     GameManager::startGame();
 
@@ -21,6 +21,12 @@ int main()
         {
             if (event->is<sf::Event::Closed>()){
                 window.close();
+            }
+
+            if (event->is<sf::Event::KeyPressed>()) {
+                if (event->getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::Escape) {
+                    window.close();
+                }
             }
         }
 

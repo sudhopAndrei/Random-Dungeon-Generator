@@ -16,17 +16,38 @@ void Room::initializeRoom() {
 
 	for (int i = 0; i < 16; i++) {
 		for (int j = 0; j < 9; j++) {
-			if (i == 0 || i == 15 || j == 0 || j == 8) {
+			if (i == 0) {
 				// Create walls around the edges
-				currentRoom->roomEntities.push_back(new Wall("images/wall.png", i * 120.f, j * 120.f, 120, 120));
+				currentRoom->roomEntities.push_back(new Wall("images/wallTile90.png", i * 120.f, j * 120.f, 120, 120));
+			}
+			else if (i == 15) {
+				currentRoom->roomEntities.push_back(new Wall("images/wallTile270.png", i * 120.f, j * 120.f, 120, 120));
+			}
+			else if (j == 0) {
+				currentRoom->roomEntities.push_back(new Wall("images/wallTile.png", i * 120.f, j * 120.f, 120, 120));
+			}
+			else if (j == 8) {
+				currentRoom->roomEntities.push_back(new Wall("images/wallTile180.png", i * 120.f, j * 120.f, 120, 120));
 			}
 			else {
 				currentRoom->roomEntities.push_back(new WalkableTile("images/floorTile.png", i * 120.f, j * 120.f, 120, 120, "sounds/floorTileWalk.wav"));
 			}
+
+			//corners
+			if (i == 0 && j == 0) {
+				currentRoom->roomEntities.push_back(new Wall("images/cornerTile.png", i * 120.f, j * 120.f, 120, 120));
+			}
+			else if (i == 15 && j == 0) {
+				currentRoom->roomEntities.push_back(new Wall("images/cornerTile90.png", i * 120.f, j * 120.f, 120, 120));
+			}
+			else if (i == 0 && j == 8) {
+				currentRoom->roomEntities.push_back(new Wall("images/cornerTile270.png", i * 120.f, j * 120.f, 120, 120));
+			}
+			else if (i == 15 && j == 8) {
+				currentRoom->roomEntities.push_back(new Wall("images/cornerTile180.png", i * 120.f, j * 120.f, 120, 120));
+			}
 		}
 	}
-
-	std::cout << "room created at: " <<  currentRoom << std::endl;
 
 	Room::rooms.push_back(currentRoom);
 }

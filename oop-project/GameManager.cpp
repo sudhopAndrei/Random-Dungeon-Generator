@@ -5,6 +5,9 @@
 
 #include "GameManager.h"
 
+//manager clock initializer
+sf::Clock GameManager::clock;
+
 //singleton instance of GameManager (private constructor)
 GameManager GameManager::managerInstance;
 
@@ -19,6 +22,8 @@ void GameManager::startGame() {
 		break;
 	}
 
+	Player* player = MovingEntities::initializePlayer(); //initialize the player
+	GameManager::activeRoom->roomEntities.push_back(player); //add the player to the active room
 }
 
 //game initializer
@@ -27,25 +32,11 @@ void GameManager::initializeEntities() {
 	srand(time(NULL));
 
 	//random number of rooms between 10 and 20
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < rand() % 10 + 10; i++) {
 		Room::initializeRoom();
 	}
 
 	Room::linkRooms();
-
-	for (int i = 0; i < Room::rooms.size(); i++) {
-		std::cout << std::endl;
-		std::cout << "room" << i << std::endl;
-		std::cout << std::endl;
-		std::cout << "left door" << Room::rooms[i]->getLeftDoor() << std::endl;
-		std::cout << std::endl;
-		std::cout << "up door" << Room::rooms[i]->getUpDoor() << std::endl;
-		std::cout << std::endl;
-		std::cout << "right door" << Room::rooms[i]->getRightDoor() << std::endl;
-		std::cout << std::endl;
-		std::cout << "down door" << Room::rooms[i]->getDownDoor() << std::endl;
-		std::cout << std::endl;
-	}
 
 	for (int i = 0; i < Room::rooms.size(); i++) {
 
@@ -55,8 +46,6 @@ void GameManager::initializeEntities() {
 				Room::rooms[i]->roomEntities.push_back(MovingEntities::initializeEnemy());
 			}
 		}
-		Room::rooms[i]->roomEntities.push_back(MovingEntities::initializePlayer()); //initialize the player
-
 	}
 }
 
@@ -64,11 +53,14 @@ void GameManager::initializeEntities() {
 std::chrono::steady_clock::time_point GameManager::lastTime = std::chrono::steady_clock::now();
 
 void GameManager::handleGame() {
+	
+	float deltaTime = GameManager::clock.restart().asSeconds();
+
 	//handle the movement of the entities
 	for (auto& entity : GameManager::activeRoom->roomEntities) {
 		EntityType type = entity->getEntityType();
 		if (type == EntityType::Player || type == EntityType::Enemy) {
-			entity->handleMovement();
+			entity->handleMovement(deltaTime);
 		}
 	}
 
@@ -125,47 +117,74 @@ void GameManager::collisionManager() {
 				}
 			}
 		}
+	}
 
-		//player-door collision handling
-		for (int i = 0; i < GameManager::activeRoom->roomEntities.size(); i++) {
-			if (GameManager::activeRoom->roomEntities[i]->getEntityType() == EntityType::Player) {
+	Room* oldRoom = nullptr;
+	GameEntity* player = nullptr;
 
-				for (int j = 0; j < GameManager::activeRoom->roomEntities.size(); j++) {
+	//player-door collision handling
+	for (int i = 0; i < GameManager::activeRoom->roomEntities.size(); i++) {
+		if (GameManager::activeRoom->roomEntities[i]->getEntityType() == EntityType::Player) {
 
-					if (GameManager::activeRoom->roomEntities[j]->getEntityType() == EntityType::Door) {
+			player = GameManager::activeRoom->roomEntities[i];
 
-						if (managerInstance.isColliding(GameManager::activeRoom->roomEntities[i]->getSprite(), GameManager::activeRoom->roomEntities[j]->getSprite())) {
+			for (int j = 0; j < GameManager::activeRoom->roomEntities.size(); j++) {
 
-							if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().x < 100.f) {
-								GameManager::activeRoom->roomEntities[i]->blockMovementLeft();
-								GameManager::activeRoom = GameManager::activeRoom->getLeftDoor(); //left room
-								std::cout << "new active room: " << GameManager::activeRoom << std::endl;
-							}
+				if (GameManager::activeRoom->roomEntities[j]->getEntityType() == EntityType::Door) {
 
-							else if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().y < 100.f) {
-								GameManager::activeRoom->roomEntities[i]->blockMovementUp();
-								GameManager::activeRoom = GameManager::activeRoom->getUpDoor(); //up room
-								std::cout << "new active room: " << GameManager::activeRoom << std::endl;
+					if (managerInstance.isColliding(GameManager::activeRoom->roomEntities[i]->getSprite(), GameManager::activeRoom->roomEntities[j]->getSprite())) {
 
-							}
+						if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().x < 100.f) {
+							oldRoom = GameManager::activeRoom; 
+							oldRoom->roomEntities.erase(std::remove(oldRoom->roomEntities.begin(), oldRoom->roomEntities.end(), player), oldRoom->roomEntities.end());
 
-							else if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().x > 1690.f) {
-								GameManager::activeRoom->roomEntities[i]->blockMovementRight();
-								GameManager::activeRoom = GameManager::activeRoom->getRightDoor(); //right room	
-								std::cout << "new active room: " << GameManager::activeRoom << std::endl;
+							GameManager::activeRoom = GameManager::activeRoom->getLeftDoor(); //left room
+							GameManager::activeRoom->roomEntities.push_back(player);
+							player->getSpriteRef().setPosition({ 1770.f, 540.f });
 
-							}
 
-							else if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().y < 850.f) {
-								GameManager::activeRoom->roomEntities[i]->blockMovementDown();
-								GameManager::activeRoom = GameManager::activeRoom->getDownDoor(); //down room
-								std::cout << "new active room: " << GameManager::activeRoom << std::endl;
+							break;
+						}
 
-							}
+						else if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().y < 100.f) {
+							oldRoom = GameManager::activeRoom;
+							oldRoom->roomEntities.erase(std::remove(oldRoom->roomEntities.begin(), oldRoom->roomEntities.end(), player), oldRoom->roomEntities.end());
+
+							GameManager::activeRoom = GameManager::activeRoom->getUpDoor(); //up room
+							GameManager::activeRoom->roomEntities.push_back(player);
+							player->getSpriteRef().setPosition({ 960.f, 930.f });
+
+
+							break;
+						}
+
+						else if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().x > 1690.f) {
+							oldRoom = GameManager::activeRoom;
+							oldRoom->roomEntities.erase(std::remove(oldRoom->roomEntities.begin(), oldRoom->roomEntities.end(), player), oldRoom->roomEntities.end());
+
+							GameManager::activeRoom = GameManager::activeRoom->getRightDoor(); //right room
+							GameManager::activeRoom->roomEntities.push_back(player);
+							player->getSpriteRef().setPosition({ 150.f, 540.f });
+
+
+							break;
+						}
+
+						else if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().y > 850.f) {
+							oldRoom = GameManager::activeRoom;
+							oldRoom->roomEntities.erase(std::remove(oldRoom->roomEntities.begin(), oldRoom->roomEntities.end(), player), oldRoom->roomEntities.end());
+
+							GameManager::activeRoom = GameManager::activeRoom->getDownDoor(); //down room
+							GameManager::activeRoom->roomEntities.push_back(player);
+							player->getSpriteRef().setPosition({ 960.f, 150.f });
+
+							break;
 						}
 					}
-				}				
+				}
 			}
+
+			break;
 		}
 	}
 }

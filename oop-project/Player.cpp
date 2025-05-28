@@ -7,27 +7,26 @@
 Player::Player(const std::string& textureName, sf::Vector2f spawnPosition) :
     Actor(textureName) {
 	this->sprite.setPosition(spawnPosition);
+    this->setSpeed(350.f);
 };
 
-void Player::handleMovement() {
+void Player::handleMovement(float deltaTime) {
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
     {
-        this->sprite.move({ 0.f, -0.5f });
+        this->sprite.move({ 0.f, -this->getSpeed() *deltaTime });
     }
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
     {
-        this->sprite.move({ -0.5f, 0.f });
+        this->sprite.move({ -this->getSpeed() * deltaTime, 0.f });
     }
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
     {
-        this->sprite.move({ 0.f, 0.5f });
+        this->sprite.move({ 0.f, this->getSpeed() * deltaTime });
     }
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
     {
-        this->sprite.move({ 0.5f, 0.f });
+        this->sprite.move({ this->getSpeed() * deltaTime, 0.f });
     }
 }
 

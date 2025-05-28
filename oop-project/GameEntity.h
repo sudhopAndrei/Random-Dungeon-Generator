@@ -25,7 +25,7 @@ public:
 	GameEntity(const std::string& textureName);
 	~GameEntity() {};
 
-	virtual void handleMovement() {}; //implements movement into a virtual class
+	virtual void handleMovement(float deltaTime) {}; //implements movement into a virtual class
 	virtual void changeDirection() {}; //changes the direction of the entity into a virtual class
 
 	void blockMovementUp() override {};
@@ -37,6 +37,7 @@ public:
 	virtual EntityType getEntityType() const = 0; //virtual getter for the entity type (works like casting)
 
 	sf::Sprite getSprite();
+	sf::Sprite& getSpriteRef();
 };
 
 #endif

@@ -15,7 +15,7 @@ public:
 	Player(const std::string& textureName, sf::Vector2f spawnPosition);
 	~Player() {};
 
-	void handleMovement() override; //overrides the movement function
+	void handleMovement(float deltaTime) override; //overrides the movement function
 
 	EntityType getEntityType() const override;
 };
