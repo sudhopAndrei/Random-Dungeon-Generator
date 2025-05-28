@@ -27,7 +27,7 @@ void GameManager::initializeEntities() {
 	srand(time(NULL));
 
 	//random number of rooms between 10 and 20
-	for (int i = 0; i < rand() % 5 + 5; i++) {
+	for (int i = 0; i < 10; i++) {
 		Room::initializeRoom();
 	}
 
@@ -136,29 +136,35 @@ void GameManager::collisionManager() {
 
 						if (managerInstance.isColliding(GameManager::activeRoom->roomEntities[i]->getSprite(), GameManager::activeRoom->roomEntities[j]->getSprite())) {
 
-							if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().x < 10.f) {
-								GameManager::activeRoom = GameManager::activeRoom->getLeftDoor(); //left room	
+							if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().x < 100.f) {
+								GameManager::activeRoom->roomEntities[i]->blockMovementLeft();
+								GameManager::activeRoom = GameManager::activeRoom->getLeftDoor(); //left room
+								std::cout << "new active room: " << GameManager::activeRoom << std::endl;
 							}
 
-							if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().y < 10.f) {
-								GameManager::activeRoom = GameManager::activeRoom->getUpDoor(); //up room	
+							else if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().y < 100.f) {
+								GameManager::activeRoom->roomEntities[i]->blockMovementUp();
+								GameManager::activeRoom = GameManager::activeRoom->getUpDoor(); //up room
+								std::cout << "new active room: " << GameManager::activeRoom << std::endl;
+
 							}
 
-							if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().x > 1790.f) {
+							else if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().x > 1690.f) {
+								GameManager::activeRoom->roomEntities[i]->blockMovementRight();
 								GameManager::activeRoom = GameManager::activeRoom->getRightDoor(); //right room	
+								std::cout << "new active room: " << GameManager::activeRoom << std::endl;
+
 							}
 
-							if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().y < 950.f) {
+							else if (GameManager::activeRoom->roomEntities[j]->getSprite().getPosition().y < 850.f) {
+								GameManager::activeRoom->roomEntities[i]->blockMovementDown();
 								GameManager::activeRoom = GameManager::activeRoom->getDownDoor(); //down room
+								std::cout << "new active room: " << GameManager::activeRoom << std::endl;
+
 							}
-
 						}
-
-						break;
 					}
-				}
-
-				break;
+				}				
 			}
 		}
 	}

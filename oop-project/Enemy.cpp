@@ -11,7 +11,7 @@ Enemy::Enemy(const std::string& texturePath, int hitpoints, int damage) : Actor(
 	//seed the random number generator (available for both the movement and the spawn position)
 	static bool seeded = false;
 	if (!seeded) {
-		std::srand(static_cast<unsigned>(std::time(nullptr)));
+		srand(time(NULL));
 		seeded = true;
 	}
 
