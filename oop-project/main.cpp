@@ -7,9 +7,23 @@
 int main()
 {
     //Window and cursor settings
-    sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML",sf::Style::Default, sf::State::Fullscreen);
-    window.setMouseCursorVisible(false); 
+    sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML", sf::Style::Default, sf::State::Fullscreen);
+    window.setMouseCursorVisible(false);
 
+    //loading screen
+    sf::Texture loadingTetxure;
+	if (!loadingTetxure.loadFromFile("images/loadingScreen.png")) {
+		std::cout << "error loading texture" << std::endl;
+		return -1;
+	}
+	sf::Sprite loadingSprite(loadingTetxure);
+    loadingSprite.setTextureRect({ {0, 0}, {1920, 1080} });
+
+	window.clear();
+	window.draw(loadingSprite);
+	window.display();
+
+    //start game
     GameManager::startGame();
 
     //Main game loop in which every event and entity is rendered
@@ -19,7 +33,7 @@ int main()
 
         while (const std::optional event = window.pollEvent())
         {
-            if (event->is<sf::Event::Closed>()){
+            if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
 
@@ -31,10 +45,10 @@ int main()
         }
 
         //loop that draws every game entity
-		for (int i = 0; i < GameManager::getActiveRoom()->getRoomEntities().size(); i++)
-		{
+        for (int i = 0; i < GameManager::getActiveRoom()->getRoomEntities().size(); i++)
+        {
             window.draw(GameManager::getActiveRoom()->getRoomEntities()[i]->getSprite());
-		}
+        }
 
         //game handler (collision, movement, etc.)
         GameManager::handleGame();
@@ -42,4 +56,3 @@ int main()
         window.display();
     }
 }
-

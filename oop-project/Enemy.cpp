@@ -10,7 +10,7 @@ Enemy::Enemy(const std::string& texturePath) : Actor(texturePath) {
 	//seed the random number generator (available for both the movement and the spawn position)
 	static bool seeded = false;
 	if (!seeded) {
-		srand(time(NULL));
+		srand(unsigned int (time(NULL)));
 		seeded = true;
 	}
 

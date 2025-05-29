@@ -33,7 +33,7 @@ void GameManager::startGame() {
 //game initializer
 void GameManager::initializeEntities() {
 
-	srand(time(NULL));
+	srand(unsigned int (time(NULL)));
 
 	//random number of rooms between 10 and 20
 	for (int i = 0; i < rand() % 10 + 10; i++) {

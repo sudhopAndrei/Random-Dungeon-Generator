@@ -4,7 +4,7 @@
 #ifndef COLLISION_H
 #define COLLISION_H
 
-#include "GameEntity.h";
+#include "GameEntity.h"
 
 class Collision {
 private:
