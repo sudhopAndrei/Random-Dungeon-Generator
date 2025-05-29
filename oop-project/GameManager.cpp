@@ -5,6 +5,11 @@
 
 #include "GameManager.h"
 
+//"<<" overloading so it prints the vector2f
+std::ostream& operator<<(std::ostream& os, const sf::Vector2f& vector) {
+	return os << "(" << vector.x << ", " << vector.y << ")";
+}
+
 //manager clock initializer
 sf::Clock GameManager::clock;
 
@@ -40,10 +45,16 @@ void GameManager::initializeEntities() {
 	for (int i = 0; i < Room::rooms.size(); i++) {
 
 		if (i != 0) {
+
+			std::cout << "Room " << i << ": " << std::endl;
+
 			//initialize the entities in the room
 			for (int j = 0; j < rand() % 5 + 7; j++) {
 				Room::rooms[i]->getRoomEntities().push_back(MovingEntities::initializeEnemy());
+				std::cout << "Enemy spawned at: " << Room::rooms[i]->getRoomEntities().back()->getSprite().getPosition() << std::endl;
+
 			}
+			std::cout << std::endl;
 		}
 	}
 }
@@ -127,6 +138,7 @@ void GameManager::collisionManager() {
 
 					//if there is collision, set the collision type for the wall
 					if (managerInstance.isColliding(GameManager::activeRoom->getRoomEntities()[i]->getSprite(), GameManager::activeRoom->getRoomEntities()[j]->getSprite())) {
+
 						//calculates if the player is above or below the wall
 						if (Collision::isHorizontalCollision(GameManager::activeRoom->getRoomEntities()[i]->getSprite(), GameManager::activeRoom->getRoomEntities()[j]->getSprite()) == false) {
 							if (GameManager::activeRoom->getRoomEntities()[i]->getSprite().getGlobalBounds().position.y > GameManager::activeRoom->getRoomEntities()[j]->getSprite().getGlobalBounds().position.y) {
