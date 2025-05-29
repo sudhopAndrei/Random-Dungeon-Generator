@@ -5,7 +5,7 @@
 
 Enemy* MovingEntities::initializeEnemy() {
 	//enemies
-	return new Enemy("images/test.png", 100, 10);
+	return new Enemy("images/test.png");
 }
 
 Player* MovingEntities::initializePlayer() {

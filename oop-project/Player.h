@@ -8,9 +8,6 @@
 #define PLAYER_HPP
 
 class Player : public Actor {
-private:
-	int healthPoints;
-
 public:
 	Player(const std::string& textureName, sf::Vector2f spawnPosition);
 	~Player() {};

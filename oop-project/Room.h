@@ -18,14 +18,14 @@ private:
 		Room* downDoor = nullptr;
 	} doors; 
 
+	std::vector <GameEntity*> roomEntities;
+
 	bool hasLeftDoor;
 	bool hasUpDoor;
 	bool hasRightDoor;
 	bool hasDownDoor;
 
 public:
-	std::vector <GameEntity*> roomEntities;
-
 	static std::vector <Room*> rooms; //holds all the rooms in the game
 
 	Room();
@@ -50,6 +50,8 @@ public:
 	Room* getUpDoor();
 	Room* getRightDoor();
 	Room* getDownDoor();
+
+	std::vector <GameEntity*>& getRoomEntities();
 };
 
 #endif

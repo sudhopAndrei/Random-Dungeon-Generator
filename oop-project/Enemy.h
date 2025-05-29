@@ -14,11 +14,8 @@ private:
 	int horizontalDirection;
 	int verticalDirection;
 
-	int hitpoints;
-	int damage;
-
 public:
-	Enemy(const std::string& texturePath, int hitpoints, int damage);
+	Enemy(const std::string& texturePath);
 	~Enemy() {};
 
 	sf::Vector2f spawnEnemy();
@@ -27,9 +24,6 @@ public:
 
 	//getters
 	EntityType getEntityType() const override;  
-
-	int getHitpoints();
-	int getDamage();
 };
 
 #endif

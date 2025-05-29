@@ -3,11 +3,9 @@
 
 #include "Enemy.h"
 
-Enemy::Enemy(const std::string& texturePath, int hitpoints, int damage) : Actor(texturePath) {
+Enemy::Enemy(const std::string& texturePath) : Actor(texturePath) {
 	this->sprite.setPosition(spawnEnemy());
 	this->setSpeed(150.f);
-	this->hitpoints = hitpoints;
-	this->damage = damage;
 
 	//seed the random number generator (available for both the movement and the spawn position)
 	static bool seeded = false;
@@ -54,11 +52,4 @@ void Enemy::handleMovement(float deltaTime) {
 //getters
 EntityType Enemy::getEntityType() const {
 	return EntityType::Enemy;
-}
-
-int Enemy::getHitpoints() {
-	return hitpoints;
-}
-int Enemy::getDamage() {
-	return damage;
 }

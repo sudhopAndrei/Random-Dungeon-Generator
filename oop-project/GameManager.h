@@ -9,6 +9,13 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
 
+enum DoorPosition {
+	Left,
+	Up,
+	Right,
+	Down
+};
+
 class GameManager : public Collision {
 private:
 	static sf::Clock clock;
@@ -18,6 +25,8 @@ private:
 	static Room* activeRoom; //the room in which the player is currently in
 
 	static void initializeEntities();
+
+	static void changePlayerRoom(GameEntity* player, Room* oldRoom, Room* newRoom, DoorPosition position);
 
 	GameManager() {};
 	~GameManager() {};
