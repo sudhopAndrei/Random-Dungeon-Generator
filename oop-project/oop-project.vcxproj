@@ -159,6 +159,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="MovementBlocker.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="MovingEntities.h" />
     <ClInclude Include="Player.h" />

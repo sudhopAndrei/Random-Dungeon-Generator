@@ -12,6 +12,10 @@ Door::Door(const std::string& textureName, float x, float y, int sizeX, int size
 	doorSound.setLooping(false);
 }
 
+void Door::playSound(sf::Sound& sound) {
+	sound.play();
+}
+
 ///getters
 EntityType Door::getEntityType() const {
 	return EntityType::Door;

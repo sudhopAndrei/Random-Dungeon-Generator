@@ -11,6 +11,10 @@ WalkableTile::WalkableTile(const std::string& textureName, float x, float y, int
 	tileSound.setLooping(true);
 }
 
+void WalkableTile::playSound(sf::Sound& sound) {
+	sound.play();
+}
+
 ///getters
 EntityType WalkableTile::getEntityType() const {
 	return EntityType::WalkableTile;
