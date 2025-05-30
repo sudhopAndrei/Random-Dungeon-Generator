@@ -23,7 +23,7 @@ public:
 	static std::vector <GameEntity*> entities; //main game vector (holds everything)
 
 	GameEntity(const std::string& textureName);
-	~GameEntity() {};
+	virtual ~GameEntity() {};
 
 	virtual void handleMovement(float deltaTime) {}; //implements movement into a virtual class
 	virtual void changeDirection() {}; //changes the direction of the entity into a virtual class
